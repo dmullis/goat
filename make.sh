@@ -36,7 +36,7 @@ do
     case $flag in
         h)  usage "";;
         g)  githubuser=${OPTARG};;  # Override guess based on GOMOD
-	w)  TEST_ARGS=${TEST_ARGS}" -write";;
+	w)  TEST_ARGS=${TEST_ARGS}" -regenerate";;
         \?) usage "unrecognized option flag";;
     esac
 done
@@ -51,7 +51,7 @@ tmpl_expand () {
 # SVG examples/ regeneration.
 #
 # If the command fails due to expected changes in SVG output, rerun
-# this script with "TEST_ARGS=-write" first on the command line.
+# this script with "TEST_ARGS=-regenerate" first on the command line.
 # X  Results are used as "golden" standard for GitHub-side regression tests --
 #    so arguments here must not conflict with those in "test.yml".
 #   XX  How to share a single arg list shared between the two i.e. "DRY"?
@@ -62,6 +62,9 @@ go test -run . -v \
 # inheritance of CSS property 'color-scheme' from <img> elements downward to nested
 # <svg> elements.
 #  - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+#
+# XXXX  Build an executable locally, for ease of debugging,
+# thereby preserving the pre-hoc binary in some GOPATH dir for ease if comparison.
 go run ./cmd/goat <examples/trees.txt \
    -svg-color-dark-scheme ${github_blue_color} \
    -svg-color-light-scheme ${github_blue_color} \
@@ -86,3 +89,5 @@ cat *.go |
 # Render to HTML, for local inspection.
 ./markdown_to_html.sh README.md >README.html
 ./markdown_to_html.sh CHANGELOG.md >CHANGELOG.html
+
+printf "\nTo install in local GOPATH:\n\t%s\n" "go install ./cmd/goat"
