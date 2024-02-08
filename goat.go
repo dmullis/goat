@@ -26,6 +26,7 @@ package goat
 import (
 	"bytes"
 	"io"
+	"log"
 )
 
 // BuildAndWriteSVG reads in a newline-delimited ASCII diagram from src and writes a
@@ -75,8 +76,21 @@ func (c *Canvas) WriteSVGBody(dst io.Writer) {
 			bI.draw(dst)
 		}
 
+		// Text drawing executes state-correctness checks based on recent history
+		tD := &textDrawer{
+			canvas: c,
+			stack: []anchorIndex{},
+		}
 		for _, textObj := range c.Text() {
-			textObj.draw(dst, c)
+			tD.draw(dst, textObj)
+		}
+		if unpoppedAnchorIndexes := len(tD.stack); unpoppedAnchorIndexes > 0 {
+			lastUnpoppedIndex := tD.stack[unpoppedAnchorIndexes-1]
+			beginKeyRune := findAnchorKey(lastUnpoppedIndex, c.anchorStarts)
+			log.Panicf(
+				"End of input reached, but %d unclosed anchor-begin keys remain" +
+					", last is '%c'",
+				unpoppedAnchorIndexes, beginKeyRune)
 		}
 	}
 	writeBytes(dst, "</g>\n")

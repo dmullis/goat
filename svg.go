@@ -4,6 +4,7 @@ package goat
 import (
 	"fmt"
 	"io"
+	"log"
 )
 
 type SVG struct {
@@ -369,16 +370,33 @@ func (b Bridge) draw(out io.Writer) {
 	)
 }
 
+type textDrawer struct {
+	canvas *Canvas
+	stack []anchorIndex
+}
+
 // Draw a single text character as an SVG text element.
-func (t Text) draw(out io.Writer, canvas *Canvas) {
+func (tD *textDrawer) draw(out io.Writer, t Text) {
+	canvas := tD.canvas
 	str := t.str
 	// Detect requested anchor start/end points, emit appropriate element and return
 	{
 		c_rune := ([]rune(str))[0]
 		if attrIndex, found := canvas.anchorStarts[c_rune]; found {
+			tD.stack = append(tD.stack, attrIndex)
 			writeBytes(out, "<a%s>\n", canvas.anchorAttributes[attrIndex])
 			return
-		} else if _, found := canvas.anchorEnds[c_rune]; found {
+		} else if attrIndex, found := canvas.anchorEnds[c_rune]; found {
+			if len(tD.stack) == 0 {
+				log.Panicf("end key '%c' found, but no matching begin key",
+					c_rune)
+			}
+			if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != attrIndex {
+				beginRune := findAnchorKey(expectedAI, canvas.anchorStarts)
+				log.Panicf("mismatched begin and end anchor keys: '%c' '%c'",
+					beginRune, c_rune)
+			}
+			tD.stack = tD.stack[:len(tD.stack)-1]
 			writeBytes(out, "</a>\n")
 			return
 		}

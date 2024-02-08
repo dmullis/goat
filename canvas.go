@@ -3,6 +3,7 @@ package goat
 import (
 	"bufio"
 	"io"
+	"log"
 	"strings"
 	"unicode"
 )
@@ -26,6 +27,16 @@ type Canvas struct {
 
 	text   map[Index]rune
 }
+
+func findAnchorKey(wantedAI anchorIndex, runeMap map[rune]anchorIndex) (_ rune) {
+	for r, aI := range runeMap {
+		if aI == wantedAI {
+			return r
+		}
+	}
+	log.Panicln("internal error")
+	return
+} 
 
 // Characters where more than one line segment can come together.
 var jointRunes = []rune{
