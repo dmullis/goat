@@ -32,17 +32,52 @@ import (
 // corresponding SVG diagram to dst.
 func BuildAndWriteSVG(src io.Reader, dst io.Writer,
 	svgColorLightScheme, svgColorDarkScheme string) {
-	svg := buildSVG(src)
-	writeBytes(dst, svg.String(svgColorLightScheme, svgColorDarkScheme))
-}
 
-func buildSVG(src io.Reader) SVG {
-	var buff bytes.Buffer
 	canvas := NewCanvas(src)
+	var buff bytes.Buffer
 	canvas.WriteSVGBody(&buff)
-	return SVG{
+
+	svg := SVG{
 		Body:	buff.String(),
 		Width:	canvas.widthScreen(),
 		Height: canvas.heightScreen(),
 	}
+
+	writeBytes(dst, svg.String(svgColorLightScheme, svgColorDarkScheme))
+}
+
+
+// WriteSVGBody writes the entire content of a Canvas out to a stream in SVG format.
+func (c *Canvas) WriteSVGBody(dst io.Writer) {
+	// We desire that pixel coordinate {0,0} should lie at center of the 8x16
+	// "cell" at top-left corner of the enclosing SVG element, and that a
+	// visually-pleasing margin separate that cell from the visible top-left
+	// corner; the 'translate(8,16)' below accomplishes that.
+	writeBytes(dst, "<g transform='translate(8,16)'>\n")
+	{
+		for _, l := range c.Lines() {
+			l.draw(dst)
+		}
+
+		for _, tI := range c.Triangles() {
+			tI.draw(dst)
+		}
+
+		for _, c := range c.RoundedCorners() {
+			c.draw(dst)
+		}
+
+		for _, c := range c.Circles() {
+			c.draw(dst)
+		}
+
+		for _, bI := range c.Bridges() {
+			bI.draw(dst)
+		}
+
+		for _, textObj := range c.Text() {
+			textObj.draw(dst, c)
+		}
+	}
+	writeBytes(dst, "</g>\n")
 }
