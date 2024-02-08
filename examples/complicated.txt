@@ -22,3 +22,6 @@
   .-.             .---+--------.            /            A || B   *bold*       |        ^
  |   |           |   Not a dot  |      <---+---<--    A dash--is not a line    v        |
   '-'             '---------+--'          /           Nor/is this.            ---
+
+
+    colored      inherited style          bold      inherited          italic

@@ -1,17 +1,28 @@
                                       .-.                           .--------.
                                    .-+   |                         |          |
                                .--+       '--.                     |'--------'|
-                              |  Server Cloud |<------------------>| Database |
+₃                             |  Server Cloud |<------------------>| Database |             ³
                                '-------------'                     |          |
                                    ^      ^                         '--------'
-                    Internet       |      |                              ^
+                  ‘Internet’       |      |                              ^
           .------------------------'      '-------------.                |
           |                                             |                v
           v                                             v              .------.       .------.
-     .--------.      WiFi     .--------.  Bluetooth  .-----.          / #  # /|      / #  # /|
-     |        |<------------->|        |<---------->|       |        +------+/| LAN +------+/|
-     |Windows |               |  OS X  |            |  iOS  |        |      +/|<--->|      +/|
+     .--------.     ₉WiFi     .--------.  Bluetooth  .-----.          / #  # /|      / #  # /|
+     |        |<------------->|        |<---------->|       |        +------+/| LAN⁹+------+/|
+     | “Win11”|               | «OS X» |            | «iOS» |        |      +/|<--->|      +/|
      +--------+               +--------+            |       |        |Ubuntu+/|     |Ubuntu+/|
     /// ____ \\\             /// ____ \\\           |   o   |        |      +/      |      +/
    '------------'           '------------'           '-----'         '------'       '------'
-      Laptop 1                 Laptop 2              Tablet 1         Dedicated Server Rack
+     ₈Laptop 1                 Laptop 2              Tablet 1⁸       ₉Dedicated Server Rack⁹
+
+
+# Default value of 'fill' is 'currentColor', set by Goat
+# from the -svg-color-dark-scheme or -svg-color-light-scheme CLI args.
+
+#₃³ fill='#F40'  # N.B. ¹-³ are at code points 0xB0-0xB3
+#₈⁸ fill="currentcolor"
+#₉⁹ fill="#666"  # N.B. ⁰ and ⁴-⁹ are at code points 0x2070 and 0x2074-0x2079
+#“” fill='#0CF' style="font-style: oblique"
+#«» fill='#C04' style="text-decoration: underline;" href='https://apple.com'
+#‘’ style="font-weight: bold; text-decoration: underline;" href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#font_style_font_weight_text_transform_and_text_decoration'

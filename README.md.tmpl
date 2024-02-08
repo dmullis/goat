@@ -123,6 +123,11 @@ Note that '·' above is not ASCII, but rather Unicode, the MIDDLE DOT character,
 ```
 {{.complicated_txt}}
 ```
+The UTF-8 encodings above for Unicode characters 'SUBSCRIPT ZERO' through
+'SUBSCRIPT NINE' request a specific
+one (of up to ten) user-defined CSS text styles be applied to following
+SVG <text> elements.
+
 ![]({{.Root}}/examples/complicated.svg)
 
 ### More examples are [here](examples)
@@ -131,12 +136,14 @@ Note that '·' above is not ASCII, but rather Unicode, the MIDDLE DOT character,
 
 The core engine of ```goat``` is accessible as a Go library package, for inclusion in specialized
 code of your own.
-The code implements a subset, and some extensions, of the ASCII diagram generation function of the browser-side Javascript in [Markdeep](http://casual-effects.com/markdeep/).
+The code implements a subset, and some extensions, of the
+ASCII diagram generation function of the
+browser-side Javascript in [Markdeep](http://casual-effects.com/markdeep/).
 
-A nicely formatted reference may be found at [pkg.go.dev](https://pkg.go.dev/github.com/{{.GithubUser}}/goat).
+A nicely formatted reference may be found
+at [pkg.go.dev](https://pkg.go.dev/github.com/{{.GithubUser}}/goat).
 
 ### Installation
-
 ```
     $ go get -u github.com/{{.GithubUser}}/goat/
 ```

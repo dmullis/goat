@@ -24,7 +24,7 @@ func TestIterators(t *testing.T) {
 		// 1 3
 		// 2 4
 		{
-			iterator: upDown(2, 2),
+			iterator: upDownMinor(2, 2),
 			expected: []Index{
 				{0, 0},
 				{0, 1},
@@ -33,11 +33,11 @@ func TestIterators(t *testing.T) {
 			},
 		},
 
-		// leftRight
+		// leftRightMinor
 		// 1 2
 		// 3 4
 		{
-			iterator: leftRight(2, 2),
+			iterator: leftRightMinor(2, 2),
 			expected: []Index{
 				{0, 0},
 				{1, 0},

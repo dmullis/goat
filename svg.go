@@ -14,6 +14,19 @@ type SVG struct {
 
 // See: https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme
 func (s SVG) String(svgColorLightScheme, svgColorDarkScheme string) string {
+	svgElem := fmt.Sprintf(
+		"<svg xmlns='%s' version='%s' height='%d' width='%d' fill='%s' font-family='%s' font-size='%s' text-anchor='middle' >\n",
+
+		"http://www.w3.org/2000/svg",
+		"1.1",   /*version*/
+		s.Height, s.Width,
+		"currentColor",
+		"Menlo,Lucida Console,monospace",
+		"1em",
+	)
+
+	// XX  Adding 'color-scheme: dark' fixes display of file://.../examples/*.svg in local
+	//     Firefox -- not needed on Github
 	style := fmt.Sprintf(
 		`<style type="text/css">
 svg {
@@ -21,7 +34,7 @@ svg {
 }
 @media (prefers-color-scheme: dark) {
    svg {
-      color-scheme: dark; /* XX  Adding this fixes examples/*.svg -- why? */
+      color-scheme: dark;
       color: %s;
    }
 }
@@ -29,12 +42,7 @@ svg {
 		svgColorLightScheme,
 		svgColorDarkScheme)
 
-	return fmt.Sprintf(
-		"<svg xmlns='%s' version='%s' height='%d' width='%d' font-family='Menlo,Lucida Console,monospace'>\n" +
-			"%s\n" +
-			"%s</svg>\n",
-		"http://www.w3.org/2000/svg",
-		"1.1", s.Height, s.Width, style, s.Body)
+	return svgElem + style + s.Body + "</svg>\n"
 }
 
 func writeBytes(out io.Writer, format string, args ...interface{}) {
@@ -43,23 +51,6 @@ func writeBytes(out io.Writer, format string, args ...interface{}) {
 	_, err := out.Write([]byte(bytesOut))
 	if err != nil {
 		panic(err)
-	}
-}
-
-func writeText(out io.Writer, canvas *Canvas) {
-	writeBytes(out,
-		`<style>
-  text {
-       text-anchor: middle;
-       font-family: "Menlo","Lucida Console","monospace";
-       fill: currentColor;
-       font-size: 1em;
-  }
-</style>
-`)
-	for _, textObj := range canvas.Text() {
-		// usual, baseline case
-		textObj.draw(out)
 	}
 }
 
@@ -319,57 +310,6 @@ func (c *Circle) draw(out io.Writer) {
 	)
 }
 
-// Draw a single text character as an SVG text element.
-func (t Text) draw(out io.Writer) {
-	p := t.start.asPixel()
-	c := t.str
-
-	opacity := 0
-
-	// Markdeep special-cases these character and treats them like a
-	// checkerboard.
-	switch c {
-	case "▉":
-		opacity = -64
-	case "▓":
-		opacity = 64
-	case "▒":
-		opacity = 128
-	case "░":
-		opacity = 191
-	}
-
-	fill := "currentColor"
-	if opacity > 0 {
-		fill = fmt.Sprintf("rgb(%d,%d,%d)", opacity, opacity, opacity)
-	}
-
-	if opacity != 0 {
-		writeBytes(out,
-			"<rect x='%d' y='%d' width='8' height='16' fill='%s'></rect>",
-			p.X-4, p.Y-8,
-			fill,
-		)
-		return
-	}
-
-	// Escape for XML
-	switch c {
-	case "&":
-		c = "&amp;"
-	case ">":
-		c = "&gt;"
-	case "<":
-		c = "&lt;"
-	}
-
-	// usual case
-	writeBytes(out,
-		`<text x='%d' y='%d'>%s</text>
-`,
-		p.X, p.Y+4, c)
-}
-
 // Draw a rounded corner as an SVG elliptical arc element.
 func (c *RoundedCorner) draw(out io.Writer) {
 	// https://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
@@ -427,4 +367,69 @@ func (b Bridge) draw(out io.Writer) {
 		sweepFlag,
 		x, y+8,
 	)
+}
+
+// Draw a single text character as an SVG text element.
+func (t Text) draw(out io.Writer, canvas *Canvas) {
+	str := t.str
+	// Detect requested anchor start/end points, emit appropriate element and return
+	{
+		c_rune := ([]rune(str))[0]
+		if attrIndex, found := canvas.anchorStarts[c_rune]; found {
+			writeBytes(out, "<a%s>\n", canvas.anchorAttributes[attrIndex])
+			return
+		} else if _, found := canvas.anchorEnds[c_rune]; found {
+			writeBytes(out, "</a>\n")
+			return
+		}
+	}
+
+	p := t.start.asPixel()
+	// Markdeep special-cases these character and treats them like a
+	// checkerboard.
+	{
+		opacity := 0
+		switch str {
+		case "▉":
+			opacity = -64
+		case "▓":
+			opacity = 64
+		case "▒":
+			opacity = 128
+		case "░":
+			opacity = 191
+		}
+
+		fill := "currentColor"
+
+		if opacity != 0 {
+			if opacity > 0 {
+				fill = fmt.Sprintf("rgb(%d,%d,%d)", opacity, opacity, opacity)
+			}
+			writeBytes(out,
+				"<rect x='%d' y='%d' width='8' height='16' fill='%s'></rect>",
+				p.X-4, p.Y-8,
+				fill,
+			)
+			return
+		}
+	}
+
+	// Escape to allow embedding of output SVG within XML
+	switch str {
+	case "&":
+		str = "&amp;"
+	case ">":
+		str = "&gt;"
+	case "<":
+		str = "&lt;"
+	}
+
+	// usual case
+	writeBytes(out,
+		`<text x='%d' y='%d'>%s</text>
+`,
+		p.X,
+		p.Y+4,  // '4' here achieves desired alignment with neighboring graphics
+		str)
 }

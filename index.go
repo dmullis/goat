@@ -6,8 +6,12 @@ type Index struct {
 	X, Y int
 }
 
-// pixel represents the CSS-pixel coordinates for an Index.
-type pixel Index  // XX different units -- create separate base type?
+// Type "pixel' represents the CSS-pixel coordinates of the top-left corner of
+// an 8x16 cell pointed to by an Index.
+type pixel struct {
+	// units of CSS "pixels"
+	X, Y int
+}
 
 func (i *Index) asPixel() pixel {
 	// TODO  define constants rather than hard-wire width and height of cell

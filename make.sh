@@ -45,9 +45,6 @@ tmpl_expand () {
     go run ./cmd/tmpl-expand Root="." GithubUser=${githubuser} "$@"
 }
 
-#tmpl_expand <go.tmpl.mod >go.mod
-#tmpl_expand <./cmd/goat/main.tmpl.go >./cmd/goat/main.go
-
 # SVG examples/ regeneration.
 #
 # If the command fails due to expected changes in SVG output, rerun
@@ -57,6 +54,10 @@ tmpl_expand () {
 #   XX  How to share a single arg list shared between the two i.e. "DRY"?
 go test -run . -v \
    ${TEST_ARGS}
+
+# Dump all optional args available for `go test`:
+#    go test -run . -v -args -h
+
 
 # Illustrate a workaround for lack of support in certain browsers e.g. Safari for
 # inheritance of CSS property 'color-scheme' from <img> elements downward to nested
