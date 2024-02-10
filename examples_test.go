@@ -14,13 +14,17 @@ import (
 )
 
 var (
+	// X Recall that the 'testing' package issues its own call to flag.Parse
+	//      https://pkg.go.dev/testing@go1.21.6#hdr-Main
 	regenerate = flag.Bool("regenerate",
 		false, "regenerate reference SVG output files")
-	svgColorLightScheme = flag.String("svg-color-light-scheme", "#000000",
-		`See help for cmd/goat`)
-	svgColorDarkScheme = flag.String("svg-color-dark-scheme", "#FFFFFF",
-		`See help for cmd/goat`)
+
+	svgConfig SVGConfig
 )
+
+func init() {
+	InitFromFlags(&svgConfig)
+}
 
 // XX  TXT source file suite is limited to a single file -- "circuits.txt"
 func TestExamplesStableOutput(t *testing.T) {
@@ -33,7 +37,7 @@ func TestExamplesStableOutput(t *testing.T) {
 			t.Fatal(err)
 		}
 		var out bytes.Buffer
-		BuildAndWriteSVG(in, &out, "black", "white")
+		BuildAndWriteSVG(in, &out, svgConfig)
 		in.Close()
 		if i > 0 && previous != out.String() {
 			c.Fail()
@@ -74,7 +78,7 @@ func TestExamples(t *testing.T) {
 			}
 		}
 
-		BuildAndWriteSVG(in, out, *svgColorLightScheme, *svgColorDarkScheme)
+		BuildAndWriteSVG(in, out, svgConfig)
 
 		in.Close()
 		out.Close()
@@ -125,7 +129,7 @@ func BenchmarkComplicated(b *testing.B) {
 	in := getIn(filepath.FromSlash("examples/complicated.txt"))
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		BuildAndWriteSVG(in, io.Discard, "black", "white")
+		BuildAndWriteSVG(in, io.Discard, svgConfig)
 	}
 }
 

@@ -11,19 +11,21 @@ type SVG struct {
 	Body   string
 	Width  int
 	Height int
+	SVGConfig
 }
 
 // See: https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme
-func (s SVG) String(svgColorLightScheme, svgColorDarkScheme string) string {
+func (s SVG) String() string {
+	config := s.SVGConfig
 	svgElem := fmt.Sprintf(
-		"<svg xmlns='%s' version='%s' height='%d' width='%d' fill='%s' font-family='%s' font-size='%s' text-anchor='middle' >\n",
-
+		"<svg xmlns='%s' version='%s' height='%d' width='%d'" +
+			" fill='%s' font-family='%s' font-size='%s' text-anchor='middle' >\n",
 		"http://www.w3.org/2000/svg",
 		"1.1",   /*version*/
 		s.Height, s.Width,
 		"currentColor",
-		"Menlo,Lucida Console,monospace",
-		"1em",
+		config.FontNames,
+		config.FontSize,
 	)
 
 	// XX  Adding 'color-scheme: dark' fixes display of file://.../examples/*.svg in local
@@ -39,9 +41,10 @@ svg {
       color: %s;
    }
 }
-</style>`,
-		svgColorLightScheme,
-		svgColorDarkScheme)
+</style>
+`,
+		config.SvgColorLightScheme,
+		config.SvgColorDarkScheme)
 
 	return svgElem + style + s.Body + "</svg>\n"
 }

@@ -2,7 +2,7 @@
 Package goat formats "ASCII-art" drawings into Github-flavored Markdown.
 
  <goat>
- porcelain API
+ API
                             BuildAndWriteSVG()
                                .----------.
      ASCII-art                |            |                      Markdown
@@ -10,7 +10,7 @@ Package goat formats "ASCII-art" drawings into Github-flavored Markdown.
                               |            |
                                '----------'
    · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
- plumbing API
+ internal
 
                                 Canvas{}
                NewCanvas() .-------------------.  WriteSVGBody()
@@ -25,14 +25,54 @@ package goat
 
 import (
 	"bytes"
+	"flag"
 	"io"
 	"log"
 )
 
+type SVGConfig struct {
+	FontNames,
+	FontSize,
+	SvgColorLightScheme,
+	SvgColorDarkScheme string
+}
+
+var DefaultSVGConfig = SVGConfig{
+	FontNames: "Menlo,Lucida Console,monospace",
+	FontSize: "1em",
+	SvgColorLightScheme: "#000000",
+	SvgColorDarkScheme: "#FFFFFF",
+}
+
+func InitFromFlags(svgConfig *SVGConfig) {
+	defConfig := DefaultSVGConfig
+	flag.StringVar(&svgConfig.FontNames, "fontnames", defConfig.FontNames,
+		"Comma-separated list of fonts preferred for rasterization of the SVG")
+	flag.StringVar(&svgConfig.FontSize, "fontsize", defConfig.FontSize,
+		"attribute 'font-size' requested by the output SVG for text")
+
+	flag.StringVar(&svgConfig.SvgColorLightScheme, "sls",
+		defConfig.SvgColorLightScheme, `short for -svg-color-light-scheme`)
+	flag.StringVar(&svgConfig.SvgColorLightScheme, "svg-color-light-scheme",
+		defConfig.SvgColorLightScheme,
+		`See help for -svg-color-dark-scheme`)
+	flag.StringVar(&svgConfig.SvgColorDarkScheme, "sds",
+		defConfig.SvgColorDarkScheme, `short for -svg-color-dark-scheme`)
+	flag.StringVar(&svgConfig.SvgColorDarkScheme, "svg-color-dark-scheme",
+		defConfig.SvgColorDarkScheme,
+		`Goat's SVG output attempts to learn something about the background being
+ drawn on top of by means of a CSS @media query, which returns a string.
+ If the string is "dark", Goat draws with the color specified by
+ this option; otherwise, Goat draws with the color specified by option
+ -svg-color-light-scheme.
+
+ See https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+`)
+}
+
 // BuildAndWriteSVG reads in a newline-delimited ASCII diagram from src and writes a
 // corresponding SVG diagram to dst.
-func BuildAndWriteSVG(src io.Reader, dst io.Writer,
-	svgColorLightScheme, svgColorDarkScheme string) {
+func BuildAndWriteSVG(src io.Reader, dst io.Writer, svgConfig SVGConfig) {
 
 	canvas := NewCanvas(src)
 	var buff bytes.Buffer
@@ -42,9 +82,10 @@ func BuildAndWriteSVG(src io.Reader, dst io.Writer,
 		Body:	buff.String(),
 		Width:	canvas.widthScreen(),
 		Height: canvas.heightScreen(),
+		SVGConfig: svgConfig,
 	}
 
-	writeBytes(dst, svg.String(svgColorLightScheme, svgColorDarkScheme))
+	writeBytes(dst, svg.String())
 }
 
 
