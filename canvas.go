@@ -3,15 +3,11 @@ package goat
 import (
 	"bufio"
 	"io"
-	"log"
-	"strings"
-	"unicode"
 )
 
 type (
 	exists struct{}
 	runeSet map[rune]exists
-	anchorSelector [2]rune  // begin, end
 )
 
 // Canvas represents the current state of parsing of the UTF-8 source text.
@@ -23,23 +19,8 @@ type Canvas struct {
 
 	text   map[Index]rune
 
-	anchorStarts,
-	anchorEnds map[rune]anchorSelector
-
-	anchorReplacements,
-	anchorClass,
-	anchorAttributes map[anchorSelector]string
+	anchorSet
 }
-
-func findAnchorKey(wantedAI anchorSelector, runeMap map[rune]anchorSelector) (_ rune) {
-	for r, aI := range runeMap {
-		if aI == wantedAI {
-			return r
-		}
-	}
-	log.Panicln("internal error")
-	return
-} 
 
 // Characters where more than one line segment can come together.
 var jointRunes = []rune{
@@ -84,60 +65,9 @@ var wideSVGSet = makeSet([]rune{
 	'.',   // Dropping this would cause " v. " to be considered graphics.
 })
 
-func makeSet(runeSlice []rune) (rs runeSet) {
-	rs = make(runeSet)
-	for _, r := range runeSlice {
-		rs[r] = exists{}
-	}
-	return
-}
-
-func isJoint(r rune) (in bool) {
-	_, in = jointRunesSet[r]
-	return
-}
-
-// XX  rename 'isCircle()'?
-func isDot(r rune) bool {
-	return r == 'o' || r == '*'
-}
-
-func isTriangle(r rune) bool {
-	return r == '^' || r == 'v' || r == '<' || r == '>'
-}
-
-func (c *Canvas) heightScreen() int {
-	return c.Height*16 + 8 + 1
-}
-
-func (c *Canvas) widthScreen() int {
-	return (c.Width + 1) * 8
-}
-
-// Arg 'canvasMap' is typically either Canvas.data or Canvas.text
-func inSet(set runeSet, canvasMap map[Index]rune, i Index) (inset bool) {
-	r, inMap := canvasMap[i]
-	if !inMap {
-		return false 	// r == rune(0)
-	}
-	_, inset = set[r]
-	return
-}
-
-// Looks only at c.data[], ignores c.text[].
-// Returns the rune for ASCII Space i.e. ' ', in the event that map lookup fails.
-//  XX  Name 'dataRuneAt()' would be more descriptive, but maybe too bulky.
-func (c *Canvas) runeAt(i Index) rune {
-	if val, ok := c.data[i]; ok {
-		return val
-	}
-	return ' '
-}
-
 // NewCanvas creates a fully-populated Canvas according to GoAT-formatted text read from
 // an io.Reader, consuming all bytes available.
 func NewCanvas(in io.Reader) (c Canvas) {
-	//  XX  Move this function to top of file.
 	width := 0
 	height := 0
 
@@ -145,20 +75,12 @@ func NewCanvas(in io.Reader) (c Canvas) {
 
 	c = Canvas{
 		data:	make(map[Index]rune),
-
 		text:	nil,
-
-		anchorStarts: make(map[rune]anchorSelector),
-		anchorEnds:   make(map[rune]anchorSelector),
-
-		anchorReplacements: make(map[anchorSelector]string),
-		anchorClass:        make(map[anchorSelector]string),
-		anchorAttributes:   make(map[anchorSelector]string),
-
+		anchorSet: NewAnchorSet(),
 	}
 
 	// first step is a text-line oriented scan of full input
-	for scanner.Scan() {
+	for line := 0; scanner.Scan(); line++ {
 		lineRunes := []rune(scanner.Text())
 		// treat blank line as a special case
 		if len(lineRunes) == 0 {
@@ -171,7 +93,7 @@ func NewCanvas(in io.Reader) (c Canvas) {
 		// that have meaning either to <text> elements, or to an anchor <a> element
 		// that will enclose a contiguous run of the <text> elements.
 		if isAnchorSpecifier(lineRunes) {
-			c.parseAnchorSpecifier(lineRunes)
+			c.parseAnchorSpecifier(lineRunes, anchorSelector(line+1))
 			continue
 		}
 
@@ -203,53 +125,6 @@ func NewCanvas(in io.Reader) (c Canvas) {
 	// XX  Why not done in the course of the line-oriented scan, in the loop above?
 	c.MoveToText()
 	return
-}
-
-func isAnchorSpecifier(lineRunes []rune) bool {
-	if len(lineRunes) < 4 {
-		return false
-	}
-	return lineRunes[0] == '#' &&
-		unicode.IsPrint(lineRunes[1]) &&
-		unicode.IsPrint(lineRunes[2]) &&
-		unicode.IsPrint(lineRunes[3]) &&
-		unicode.IsPrint(lineRunes[4]) &&
-		unicode.IsSpace(lineRunes[5])
-}
-
-func (c *Canvas) parseAnchorSpecifier(lineRunes []rune) {
-	beginRune, endRune := lineRunes[1], lineRunes[2]
-	newSelector := anchorSelector{beginRune,endRune}
-	c.anchorStarts[beginRune] = newSelector
-	c.anchorEnds[    endRune] = newSelector
-
-	valueRunes := lineRunes[6:]
-
-	c.anchorReplacements[newSelector] = string(lineRunes[1]) + string(lineRunes[2]) // XX XX
-
-	classStr := ""
-	attrStr := ""
-	fields := strings.Fields(string(valueRunes))
-	for _, f := range fields {
-		// strip any trailing sh-style comment
-		if f[0] == '#' {   // X  Compare zero-extended 'byte' to 'rune'
-			break
-		}
-		// Is the field an HTML attribute, to be added to the <a> element?
-		//  X  Must test for "=" first, because value may contain ":"
-		if _, _, found := strings.Cut(f, "="); found {
-			attrStr += " " + f
-			continue
-		}
-		// Is it the field a CSS property to be added to the class definition?
-		if _, _, found := strings.Cut(f, ":"); found {
-			classStr += " " + f + ";"
-			continue
-		}
-		panic(f)
-	}
-	c.anchorClass[newSelector] = classStr
-	c.anchorAttributes[newSelector] = attrStr
 }
 
 // Move contents of every cell that appears, according to a tricky set of rules,
@@ -352,7 +227,58 @@ func (c *Canvas) Text() (text []Text) {
 		}
 		text = append(text, Text{
 			start: idx,
-			str: string(r)})
+			rune: r})
 	}
 	return
+}
+
+
+func makeSet(runeSlice []rune) (rs runeSet) {
+	rs = make(runeSet)
+	for _, r := range runeSlice {
+		rs[r] = exists{}
+	}
+	return
+}
+
+func isJoint(r rune) (in bool) {
+	_, in = jointRunesSet[r]
+	return
+}
+
+// XX  rename 'isCircle()'?
+func isDot(r rune) bool {
+	return r == 'o' || r == '*'
+}
+
+func isTriangle(r rune) bool {
+	return r == '^' || r == 'v' || r == '<' || r == '>'
+}
+
+func (c *Canvas) heightScreen() int {
+	return c.Height*16 + 8 + 1
+}
+
+func (c *Canvas) widthScreen() int {
+	return (c.Width + 1) * 8
+}
+
+// Arg 'canvasMap' is typically either Canvas.data or Canvas.text
+func inSet(set runeSet, canvasMap map[Index]rune, i Index) (inset bool) {
+	r, inMap := canvasMap[i]
+	if !inMap {
+		return false 	// r == rune(0)
+	}
+	_, inset = set[r]
+	return
+}
+
+// Looks only at c.data[], ignores c.text[].
+// Returns the rune for ASCII Space i.e. ' ', in the event that map lookup fails.
+//  XX  Name 'dataRuneAt()' would be more descriptive, but maybe too bulky.
+func (c *Canvas) runeAt(i Index) rune {
+	if val, ok := c.data[i]; ok {
+		return val
+	}
+	return ' '
 }

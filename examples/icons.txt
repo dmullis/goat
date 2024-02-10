@@ -18,19 +18,18 @@
 
 
   The default color of text and graphics both is specified by
-  the«goat₇-svg-color-dark-scheme⁷or₇-svg-color-light-scheme⁷CLI»args.
+  the«goat»₇svg-color-dark-scheme⁷or ₇svg-color-light-scheme⁷CLI args.
   The CLI-specified color is inherited by the 'fill' attribute of Goat's output
   SVG <text> elements, from₆currentColor⁶as set by CSS in Goat's output SVG header.
 
-  Text decoration options are documented by the₄Mozilla Developer's Network⁴.
+  Text decoration options are documented by the₄Mozilla Developer's Network⁴
 
-#<> fill='#4E4'
-#‘’ fill='#F40'  # N.B. ¹-³ are at code points 0xB0-0xB3
-#“” fill='#0CF' style="font-style: oblique"
-#«» style="font-weight: bold"
-#₄⁴ fill="#0CF" style="font-weight: bold; text-decoration: underline;" href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#font_style_font_weight_text_transform_and_text_decoration'
-#₅⁵ fill='#C04' style="text-decoration: underline;" href='https://apple.com'
-#₆⁶ fill='#0CF' style="text-decoration: underline;" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword'
-#₇⁷ fill="currentColor" style="text-decoration: underline;" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme'
-#₈⁸ fill="#EEE" style="text-decoration: underline" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword'
-#₉⁹ fill="#999"  # N.B. ⁰ and ⁴-⁹ are at code points 0x2070 and 0x2074-0x2079
+#‘’   fill='#F40'  # N.B. ¹-³ are at code points 0xB0-0xB3
+#“”   style="font-style:oblique"
+#«»   style="font-weight:bold"
+#₄⁴ . fill="#0CF" font-weight:bold text-decoration:underline href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#font_style_font_weight_text_transform_and_text_decoration'
+#₅⁵   fill='#C04' style="text-decoration:underline;" href='https://apple.com'
+#₆⁶   fill='#0CF' style="text-decoration:underline;" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword'
+#₇⁷-  fill="currentColor" text-decoration:underline href='https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme'
+#₈⁸   fill="#EEE" text-decoration:underline href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword'
+#₉⁹   fill="#999"  # N.B. ⁰ and ⁴-⁹ are at code points 0x2070 and 0x2074-0x2079

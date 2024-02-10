@@ -11,13 +11,13 @@ type SVG struct {
 	Width  int
 	Height int
 	SVGConfig
-	AnchorClasses map[anchorSelector]string
+	anchorSet
 
 	Body   string
 }
 
 func className(aS anchorSelector) string {
-	return fmt.Sprintf("_%x%x", aS[0], aS[1])
+	return fmt.Sprintf("_%02d", aS)
 }
 
 // See: https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme
@@ -34,10 +34,15 @@ func (s SVG) String() string {
 		config.FontSize,
 	)
 
+	// X  Map iteration is non-deterministic -- but regression testing requires deterministic output.
+	//    Furthermore, debugging is easier if order of CSS class definitions in SVG
+	//    matches that of source TXT.
 	var anchorClasses string
-	for anchorSelector, properties := range s.AnchorClasses {
+	for _, anchorSelector := range s.anchorSet.Selectors {
 		name := className(anchorSelector)
-		anchorClasses += fmt.Sprintf(".%s {%s}\n", name, properties)
+		anchorClasses += fmt.Sprintf(".%s {%s}\n",
+			name,
+			s.anchorSet.payload[anchorSelector].Class)
 	}
 
 	// XX  Adding 'color-scheme: dark' fixes display of file://.../examples/*.svg in local
@@ -395,33 +400,44 @@ type textDrawer struct {
 // Draw a single text character as an SVG text element.
 func (tD *textDrawer) draw(out io.Writer, t Text) {
 	canvas := tD.canvas
-	str := t.str
-	// Detect requested anchor start/end points, emit appropriate element and return
-	{
-		c_rune := ([]rune(str))[0]
-		if attrSelector, found := canvas.anchorStarts[c_rune]; found {
-			tD.stack = append(tD.stack, attrSelector)
-			writeBytes(out, "<a class='%s' %s>\n",
-				className(attrSelector),
-				canvas.anchorAttributes[attrSelector])
-			return
-		} else if attrSelector, found := canvas.anchorEnds[c_rune]; found {
-			if len(tD.stack) == 0 {
-				log.Panicf("end key '%c' found, but no matching begin key",
-					c_rune)
-			}
-			if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != attrSelector {
-				beginRune := findAnchorKey(expectedAI, canvas.anchorStarts)
-				log.Panicf("mismatched begin and end anchor keys: '%c' '%c'",
-					beginRune, c_rune)
-			}
-			tD.stack = tD.stack[:len(tD.stack)-1]
-			writeBytes(out, "</a>\n")
-			return
+	// Detect requested anchor start/end points, emit appropriate element
+	aS := canvas.anchorSet
+	c_rune := t.rune
+	str := string(c_rune)
+
+	if anchorSelector, found := aS.Closes[c_rune]; found {
+		if len(tD.stack) == 0 {
+			log.Panicf("close key '%c' found, but no matching open key",
+				c_rune)
 		}
+
+		payload := aS.payload[anchorSelector]
+		str = string(payload.Replacements[1])
+		finalDraw(out, t.start.asPixel(), str)
+
+		if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != anchorSelector {
+			openRune := findAnchorKey(expectedAI, aS.Opens)
+			log.Panicf("mismatched open and close anchor keys: '%c' '%c'",
+				openRune, c_rune)
+		}
+		tD.stack = tD.stack[:len(tD.stack)-1]
+		writeBytes(out, "</a>\n")
+		return
 	}
 
-	p := t.start.asPixel()
+	if anchorSelector, found := aS.Opens[c_rune]; found {
+		payload := aS.payload[anchorSelector]
+		tD.stack = append(tD.stack, anchorSelector)
+		writeBytes(out, "<a class='%s' %s>\n",
+			className(anchorSelector),
+			payload.Attributes)
+		
+		str = string(payload.Replacements[0])
+	}
+	finalDraw(out, t.start.asPixel(), str)
+}
+
+func finalDraw(out io.Writer, p pixel, str string) {
 	// Markdeep special-cases these character and treats them like a
 	// checkerboard.
 	{

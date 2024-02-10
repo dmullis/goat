@@ -78,6 +78,9 @@ func TestExamples(t *testing.T) {
 			}
 		}
 
+		if testing.Verbose() {
+			t.Logf("Processing file %s", name)
+		}
 		BuildAndWriteSVG(in, out, svgConfig)
 
 		in.Close()
@@ -97,7 +100,7 @@ func TestExamples(t *testing.T) {
 					toSVGFilename(name), buff.Len(), len(golden))
 				for i:=0; i<min(len(golden), len(newStr)); i++ {
 					if newStr[i] != golden[i] {
-						t.Logf("Differing runes at offset %d: new='%#v' reference='%#v'\n",
+						t.Logf("Differing runes at offset %d: new='%c' reference='%c'\n",
 							i, newStr[i], golden[i])
 						break
 					}
@@ -105,11 +108,6 @@ func TestExamples(t *testing.T) {
 				t.Logf("Generated contents do not match existing %s",
 					toSVGFilename(name))
 				failures++
-			} else {
-				if testing.Verbose() {
-					t.Logf("Existing and generated contents match %s\n",
-						toSVGFilename(name))
-				}
 			}
 			in.Close()
 			out.Close()

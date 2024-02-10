@@ -82,7 +82,7 @@ func BuildAndWriteSVG(src io.Reader, dst io.Writer, svgConfig SVGConfig) {
 		Width:	canvas.widthScreen(),
 		Height: canvas.heightScreen(),
 		SVGConfig: svgConfig,
-		AnchorClasses: canvas.anchorClass,
+		anchorSet: canvas.anchorSet,
 
 		Body:	buff.String(),  // body
 	}
@@ -129,11 +129,11 @@ func (c *Canvas) WriteSVGBody(dst io.Writer) {
 		}
 		if unpoppedAnchorIndexes := len(tD.stack); unpoppedAnchorIndexes > 0 {
 			lastUnpoppedIndex := tD.stack[unpoppedAnchorIndexes-1]
-			beginKeyRune := findAnchorKey(lastUnpoppedIndex, c.anchorStarts)
+			openKeyRune := findAnchorKey(lastUnpoppedIndex, c.anchorSet.Opens)
 			log.Panicf(
-				"End of input reached, but %d unclosed anchor-begin keys remain" +
+				"End of input reached, but %d unclosed anchor-open keys remain unclosed" +
 					", last is '%c'",
-				unpoppedAnchorIndexes, beginKeyRune)
+				unpoppedAnchorIndexes, openKeyRune)
 		}
 	}
 	writeBytes(dst, "</g>\n")

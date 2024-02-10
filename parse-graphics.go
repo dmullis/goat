@@ -107,15 +107,10 @@ type RoundedCorner struct {
 // Text corresponds to any runes not reserved for diagrams, or reserved runes
 // surrounded by alphanumerics.
 type Text struct {
-	// One of 'attributeKeySet' to start an anchor '<a>',
-	// 'closeAnchorKey' to emit '</a>'; 0x0 otherwise.
-	//anchorKey rune
-
 	start	 Index
 
-	// Possibly multiple bytes, from Unicode source of type 'rune'.
-	// XX  Why changed from the original (locally-allocated) rune type?
-	str	 string
+	// Possibly multi-byte, from Unicode source.
+	rune
 }
 
 // Bridge corresponds to combinations of "-)-" or "-(-" and is displayed as
