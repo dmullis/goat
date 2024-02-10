@@ -11,7 +11,7 @@ import (
 type (
 	exists struct{}
 	runeSet map[rune]exists
-	anchorIndex int
+	anchorSelector [2]rune  // begin, end
 )
 
 // Canvas represents the current state of parsing of the UTF-8 source text.
@@ -21,14 +21,17 @@ type Canvas struct {
 
 	data   map[Index]rune
 
-	anchorStarts map[rune]anchorIndex
-	anchorEnds map[rune]anchorIndex
-	anchorAttributes [/*anchorIndex*/]string
-
 	text   map[Index]rune
+
+	anchorStarts,
+	anchorEnds map[rune]anchorSelector
+
+	anchorReplacements,
+	anchorClass,
+	anchorAttributes map[anchorSelector]string
 }
 
-func findAnchorKey(wantedAI anchorIndex, runeMap map[rune]anchorIndex) (_ rune) {
+func findAnchorKey(wantedAI anchorSelector, runeMap map[rune]anchorSelector) (_ rune) {
 	for r, aI := range runeMap {
 		if aI == wantedAI {
 			return r
@@ -142,9 +145,16 @@ func NewCanvas(in io.Reader) (c Canvas) {
 
 	c = Canvas{
 		data:	make(map[Index]rune),
+
 		text:	nil,
-		anchorStarts: make(map[rune]anchorIndex),
-		anchorEnds: make(map[rune]anchorIndex),
+
+		anchorStarts: make(map[rune]anchorSelector),
+		anchorEnds:   make(map[rune]anchorSelector),
+
+		anchorReplacements: make(map[anchorSelector]string),
+		anchorClass:        make(map[anchorSelector]string),
+		anchorAttributes:   make(map[anchorSelector]string),
+
 	}
 
 	// first step is a text-line oriented scan of full input
@@ -161,7 +171,7 @@ func NewCanvas(in io.Reader) (c Canvas) {
 		// that have meaning either to <text> elements, or to an anchor <a> element
 		// that will enclose a contiguous run of the <text> elements.
 		if isAnchorSpecifier(lineRunes) {
-			c.addAnchorAttrs(lineRunes)
+			c.parseAnchorSpecifier(lineRunes)
 			continue
 		}
 
@@ -202,27 +212,44 @@ func isAnchorSpecifier(lineRunes []rune) bool {
 	return lineRunes[0] == '#' &&
 		unicode.IsPrint(lineRunes[1]) &&
 		unicode.IsPrint(lineRunes[2]) &&
-		unicode.IsSpace(lineRunes[3])
+		unicode.IsPrint(lineRunes[3]) &&
+		unicode.IsPrint(lineRunes[4]) &&
+		unicode.IsSpace(lineRunes[5])
 }
 
-func (c *Canvas) addAnchorAttrs(lineRunes []rune) {
-	newIndex := anchorIndex(len(c.anchorAttributes))
-	c.anchorStarts[lineRunes[1]] = newIndex
-	c.anchorEnds[  lineRunes[2]] = newIndex
+func (c *Canvas) parseAnchorSpecifier(lineRunes []rune) {
+	beginRune, endRune := lineRunes[1], lineRunes[2]
+	newSelector := anchorSelector{beginRune,endRune}
+	c.anchorStarts[beginRune] = newSelector
+	c.anchorEnds[    endRune] = newSelector
 
-	valueRunes := lineRunes[4:]
+	valueRunes := lineRunes[6:]
 
-	// strip any sh-style comment
+	c.anchorReplacements[newSelector] = string(lineRunes[1]) + string(lineRunes[2]) // XX XX
+
+	classStr := ""
+	attrStr := ""
 	fields := strings.Fields(string(valueRunes))
-	valueStr := ""
 	for _, f := range fields {
-		//if f[0] == byte('#') {
+		// strip any trailing sh-style comment
 		if f[0] == '#' {   // X  Compare zero-extended 'byte' to 'rune'
 			break
 		}
-		valueStr += " " + f
+		// Is the field an HTML attribute, to be added to the <a> element?
+		//  X  Must test for "=" first, because value may contain ":"
+		if _, _, found := strings.Cut(f, "="); found {
+			attrStr += " " + f
+			continue
+		}
+		// Is it the field a CSS property to be added to the class definition?
+		if _, _, found := strings.Cut(f, ":"); found {
+			classStr += " " + f + ";"
+			continue
+		}
+		panic(f)
 	}
-	c.anchorAttributes = append(c.anchorAttributes, valueStr)
+	c.anchorClass[newSelector] = classStr
+	c.anchorAttributes[newSelector] = attrStr
 }
 
 // Move contents of every cell that appears, according to a tricky set of rules,

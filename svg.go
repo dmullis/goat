@@ -8,10 +8,16 @@ import (
 )
 
 type SVG struct {
-	Body   string
 	Width  int
 	Height int
 	SVGConfig
+	AnchorClasses map[anchorSelector]string
+
+	Body   string
+}
+
+func className(aS anchorSelector) string {
+	return fmt.Sprintf("_%x%x", aS[0], aS[1])
 }
 
 // See: https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme
@@ -28,6 +34,12 @@ func (s SVG) String() string {
 		config.FontSize,
 	)
 
+	var anchorClasses string
+	for anchorSelector, properties := range s.AnchorClasses {
+		name := className(anchorSelector)
+		anchorClasses += fmt.Sprintf(".%s {%s}\n", name, properties)
+	}
+
 	// XX  Adding 'color-scheme: dark' fixes display of file://.../examples/*.svg in local
 	//     Firefox -- not needed on Github
 	style := fmt.Sprintf(
@@ -35,6 +47,7 @@ func (s SVG) String() string {
 svg {
    color: %s;
 }
+%s
 @media (prefers-color-scheme: dark) {
    svg {
       color-scheme: dark;
@@ -44,6 +57,7 @@ svg {
 </style>
 `,
 		config.SvgColorLightScheme,
+		anchorClasses,
 		config.SvgColorDarkScheme)
 
 	return svgElem + style + s.Body + "</svg>\n"
@@ -375,7 +389,7 @@ func (b Bridge) draw(out io.Writer) {
 
 type textDrawer struct {
 	canvas *Canvas
-	stack []anchorIndex
+	stack []anchorSelector
 }
 
 // Draw a single text character as an SVG text element.
@@ -385,16 +399,18 @@ func (tD *textDrawer) draw(out io.Writer, t Text) {
 	// Detect requested anchor start/end points, emit appropriate element and return
 	{
 		c_rune := ([]rune(str))[0]
-		if attrIndex, found := canvas.anchorStarts[c_rune]; found {
-			tD.stack = append(tD.stack, attrIndex)
-			writeBytes(out, "<a%s>\n", canvas.anchorAttributes[attrIndex])
+		if attrSelector, found := canvas.anchorStarts[c_rune]; found {
+			tD.stack = append(tD.stack, attrSelector)
+			writeBytes(out, "<a class='%s' %s>\n",
+				className(attrSelector),
+				canvas.anchorAttributes[attrSelector])
 			return
-		} else if attrIndex, found := canvas.anchorEnds[c_rune]; found {
+		} else if attrSelector, found := canvas.anchorEnds[c_rune]; found {
 			if len(tD.stack) == 0 {
 				log.Panicf("end key '%c' found, but no matching begin key",
 					c_rune)
 			}
-			if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != attrIndex {
+			if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != attrSelector {
 				beginRune := findAnchorKey(expectedAI, canvas.anchorStarts)
 				log.Panicf("mismatched begin and end anchor keys: '%c' '%c'",
 					beginRune, c_rune)

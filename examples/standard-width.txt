@@ -1,4 +1,13 @@
-UNICODE characters        XXXX  Fold all this into examples/unicode.txt
+UNICODE characters and notes on their various uses in Goat.
+
+Fonts tested, in Ubuntu GNU emacs:  
+    Bitstream Vera Sans
+    DejaVu Sans Mono
+    FreeMono
+    Liberation Mono
+    Linux Libertine Mono
+    Monospace
+    Noto Mono Regular
 ---
 
 joints:
@@ -13,9 +22,16 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 0123456789012345
 
 ordinary, Unicode:
-
-┌─┬┐·¤¨´«»¯ ¦­
+┌─┬┐·¤¨´¯ ¦­
 ×÷øØ ±¡
+
+‘’‘’‘’‘’‘’                                         anchor keys: recommended
+“”“”“”“”“”                                         anchor keys: recommended
+«»«»«»«»«»                                         anchor keys: recommended
+0123456789
+
+†‡• †‡• †‡•
+
 ┘┘┘┘┘┘┘┘┘┘┘       BOX DRAWINGS LIGHT ...
 │││││││││││
 ║║║║║║║║║║║       BOX DRAWINGS LIGHT DOUBLE ...
@@ -23,12 +39,20 @@ ordinary, Unicode:
 ═══════════
 01234567890
 
+Non-standard dimensions in fonts:
+    Linux Libertine Mono
+‹›‹›‹›‹›‹›
+0123456789
 
 Non-standard dimensions in fonts:
+    Bitstream Vera Sans
     Liberation Mono
+    Linux Libertine Mono
     Noto Mono Regular
 ₀₁₂₃₄₅₆₇₈₉
 ⁰¹²³⁴⁵⁶⁷⁸⁹
+₀⁰₁¹₂²₃³₄⁴₅⁵₆⁶₇⁷₈⁸₉⁹
+01234567890
 αβγδεζηθικλμνξοπρςστυφχψω
 
 

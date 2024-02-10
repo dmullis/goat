@@ -79,10 +79,12 @@ func BuildAndWriteSVG(src io.Reader, dst io.Writer, svgConfig SVGConfig) {
 	canvas.WriteSVGBody(&buff)
 
 	svg := SVG{
-		Body:	buff.String(),
 		Width:	canvas.widthScreen(),
 		Height: canvas.heightScreen(),
 		SVGConfig: svgConfig,
+		AnchorClasses: canvas.anchorClass,
+
+		Body:	buff.String(),  // body
 	}
 
 	writeBytes(dst, svg.String())
@@ -120,7 +122,7 @@ func (c *Canvas) WriteSVGBody(dst io.Writer) {
 		// Text drawing executes state-correctness checks based on recent history
 		tD := &textDrawer{
 			canvas: c,
-			stack: []anchorIndex{},
+			stack: []anchorSelector{},
 		}
 		for _, textObj := range c.Text() {
 			tD.draw(dst, textObj)
