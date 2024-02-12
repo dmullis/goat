@@ -24,6 +24,7 @@ type (
 	svgAnchorPayload struct {
 		Replacements [2]rune
 		Class,
+		DarkClass,
 		Attributes string
 	}
 )
@@ -71,25 +72,7 @@ func (c *Canvas) parseAnchorSpecifier(lineRunes []rune, newSelector anchorSelect
 
 	valueRunes := lineRunes[6:]
 
-	classStr := ""
-	attrStr := ""
-	fields := strings.Fields(string(valueRunes))
-	for _, f := range fields {
-		// strip any trailing sh-style comment
-		if f[0] == '#' {   // X  Compare zero-extended 'byte' to 'rune'
-			break
-		}
-		// Is the field an HTML attribute, to be added to the <a> element?
-		//  X  Must test for "=" first, because value may contain ":"
-		if _, _, found := strings.Cut(f, "="); found {
-			attrStr += " " + f
-			continue
-		}
-		// Is it the field a CSS property to be added to the class definition?
-		if _, _, found := strings.Cut(f, ":"); found {
-			classStr += " " + f + ";"
-			continue
-		}
+	logPanic := func(f string) {
 		log.Panicf(`
 	Field
 		'%s'
@@ -100,13 +83,56 @@ func (c *Canvas) parseAnchorSpecifier(lineRunes []rune, newSelector anchorSelect
 	%s`,
 			f,
 			string(lineRunes),
-			"does not appear to be either an HTML attribute or CSS property.",
+			"unexpected.",
 			"Recall that fields are divided by space characters -- quoting of",
 			"embedded space is not supported.")
 	}
+
+	var classStr, darkClassStr, attrStr string
+	fields := strings.Fields(string(valueRunes))
+	darkStart := -1
+	for iF, f := range fields {
+		if f[0] == '#' {   // X  Compare zero-extended 'byte' to 'rune'
+			// early exit -- trailing sh-style comment found
+			break
+		}
+		// Is the field the dark-scheme switch?
+		if f == "--" {
+			darkStart = iF+1
+			break
+		}
+		// Is the field an HTML attribute, to be added to the <a> element?
+		//  X  Must test for "=" first, because value may contain ":"
+		if _, _, found := strings.Cut(f, "="); found {
+			attrStr += " " + f
+			continue
+		}
+		// Is the field a CSS property to be added to the class definition?
+		if _, _, found := strings.Cut(f, ":"); found {
+			classStr += " " + f + ";"
+			continue
+		}
+		logPanic(f)
+	}
+	if darkStart > 0 {
+		for _, f := range fields[darkStart:] {
+			if f[0] == '#' {
+				break
+			}
+			// Is the field a CSS property to be added to the class definition?
+			if _, _, found := strings.Cut(f, ":"); found {
+				darkClassStr += " " + f + ";"
+				continue
+			}
+			logPanic(f)
+		}
+	}
 	aSet.payload[newSelector] = svgAnchorPayload{
 		Replacements: [2]rune(lineRunes[3:5]),
+
 		Class: classStr,
+		DarkClass: darkClassStr,
+
 		Attributes: attrStr,
 	}
 }

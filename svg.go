@@ -37,12 +37,15 @@ func (s SVG) String() string {
 	// X  Map iteration is non-deterministic -- but regression testing requires deterministic output.
 	//    Furthermore, debugging is easier if order of CSS class definitions in SVG
 	//    matches that of source TXT.
-	var anchorClasses string
+	var anchorClasses, anchorDarkClasses string
 	for _, anchorSelector := range s.anchorSet.Selectors {
 		name := className(anchorSelector)
 		anchorClasses += fmt.Sprintf(".%s {%s}\n",
 			name,
 			s.anchorSet.payload[anchorSelector].Class)
+		anchorDarkClasses += fmt.Sprintf("    .%s {%s}\n",
+			name,
+			s.anchorSet.payload[anchorSelector].DarkClass)
 	}
 
 	// XX  Adding 'color-scheme: dark' fixes display of file://.../examples/*.svg in local
@@ -53,7 +56,6 @@ svg {
     color: %s;
     stroke: currentColor;
 }
-
 text {
     stroke: none;
 }
@@ -61,18 +63,18 @@ path {
     fill: none;
 }
 %s
-
 @media (prefers-color-scheme: dark) {
-   svg {
+    svg {
       color-scheme: dark;
       color: %s;
-   }
-}
+    }
+%s}
 </style>
 `,
 		config.SvgColorLightScheme,
 		anchorClasses,
-		config.SvgColorDarkScheme)
+		config.SvgColorDarkScheme,
+		anchorDarkClasses)
 
 	return svgElem + style + s.Body + "</svg>\n"
 }

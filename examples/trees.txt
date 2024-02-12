@@ -8,5 +8,5 @@
      1   2 3   4  { 1   2   3   4  [ 1   2   3   4 ]}      '--- 4          '-- 4     \ 4
 
 
-#[][] fill='#F08' href="https://github.com" font-weight:bold
+#[][] fill:#A00 href="https://github.com" font-weight:bold -- fill:#FCC
 #{}   font-style:oblique
