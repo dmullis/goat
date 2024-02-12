@@ -38,8 +38,8 @@ type SVGConfig struct {
 }
 
 var DefaultSVGConfig = SVGConfig{
-	FontNames: "Menlo,Lucida Console,monospace",
-	FontSize: "1em",
+	FontNames: "monospace",
+	FontSize: "1.1em",
 	SvgColorLightScheme: "#000000",
 	SvgColorDarkScheme: "#FFFFFF",
 }
