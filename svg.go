@@ -50,9 +50,18 @@ func (s SVG) String() string {
 	style := fmt.Sprintf(
 		`<style type="text/css">
 svg {
-   color: %s;
+    color: %s;
+    stroke: currentColor;
+}
+
+text {
+    stroke: none;
+}
+path {
+    fill: none;
 }
 %s
+
 @media (prefers-color-scheme: dark) {
    svg {
       color-scheme: dark;
@@ -202,7 +211,7 @@ func (l Line) draw(out io.Writer) {
 	}
 
 	writeBytes(out,
-		"<path d='M %d,%d L %d,%d' fill='none' stroke='currentColor'></path>\n",
+		"<path d='M %d,%d L %d,%d'></path>\n",
 		start.X, start.Y,
 		stop.X, stop.Y,
 	)
@@ -325,7 +334,7 @@ func (c *Circle) draw(out io.Writer) {
 	pixel := c.start.asPixel()
 	const circleRadius = 6
 	writeBytes(out,
-		"<circle cx='%d' cy='%d' r='%d' stroke='currentColor' fill='%s'></circle>\n",
+		"<circle cx='%d' cy='%d' r='%d' fill='%s'></circle>\n",
 		pixel.X,
 		pixel.Y,
 		circleRadius,
@@ -366,7 +375,7 @@ func (c *RoundedCorner) draw(out io.Writer) {
 	}
 
 	writeBytes(out,
-		"<path d='M %d,%d A 16,16 0 0,%d %d,%d' fill='none' stroke='currentColor'></path>\n",
+		"<path d='M %d,%d A 16,16 0 0,%d %d,%d'></path>\n",
 		startX,
 		startY,
 		sweepFlag,
@@ -385,7 +394,7 @@ func (b Bridge) draw(out io.Writer) {
 	}
 
 	writeBytes(out,
-		"<path d='M %d,%d A 9,9 0 0,%d %d,%d' fill='none' stroke='currentColor'></path>\n",
+		"<path d='M %d,%d A 9,9 0 0,%d %d,%d'></path>\n",
 		x, y-8,
 		sweepFlag,
 		x, y+8,
