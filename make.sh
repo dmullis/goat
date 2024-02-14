@@ -41,7 +41,7 @@ do
     esac
 done
 
-tmpl_expand () {
+tmpl_expand_GH () {
     go run ./cmd/tmpl-expand Root="." GithubUser=${githubuser} "$@"
 }
 
@@ -57,14 +57,15 @@ go test -run . -v \
 
 # Dump all optional args available for `go test`:
 #    go test -run . -v -args -h
-
+# Run test binary under debugger:
+#    dlv test -- -test.v -regenerate
 
 # Illustrate a workaround for lack of support in certain browsers e.g. Safari for
 # inheritance of CSS property 'color-scheme' from <img> elements downward to nested
 # <svg> elements.
 #  - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 #
-# XXXX  Build an executable locally, for ease of debugging,
+# XX  Build an executable locally, for ease of debugging,
 # thereby preserving the pre-hoc binary in some GOPATH dir for ease if comparison.
 go run ./cmd/goat <examples/trees.txt \
    -svg-color-dark-scheme ${github_blue_color} \
@@ -72,8 +73,13 @@ go run ./cmd/goat <examples/trees.txt \
    >trees.mid-blue.svg
 
 # build README.md
-tmpl_expand <README.md.tmpl >README.md \
-   $(bash -c 'echo ./examples/{trees,overlaps,line-decorations,line-ends,dot-grids,large-nodes,small-grids,big-grids,complicated}.{txt,svg}')
+# XX  Complication: filenames want to use '-', but template identifiers disallow them.
+#      => $ename .txt files to use '_'?
+# This uses the 'ValueFilePath' functionality of cmd/tmpl-expand
+filename_pairs=$(grep --only-matching -E '[_a-z]+_txt' README.md.tmpl |
+		     sed 's:\(.*\)_txt: ./examples/\1.txt ./examples/\1.svg:' |
+		     tr '_' '-')
+tmpl_expand_GH <README.md.tmpl >README.md $filename_pairs
 
 # '-d' writes ./awkvars.out
 cat *.go |

@@ -54,9 +54,8 @@ func isAnchorSpecifier(lineRunes []rune) bool {
 	if len(lineRunes) < 6 {
 		return false
 	}
-	return lineRunes[0] == '#' &&
-		unicode.IsPrint(lineRunes[1]) &&
-		unicode.IsPrint(lineRunes[2]) &&
+	return unicode.IsPrint(lineRunes[1]) && ! unicode.IsSpace(lineRunes[1]) &&
+		unicode.IsPrint(lineRunes[2]) && ! unicode.IsSpace(lineRunes[2]) &&
 		unicode.IsPrint(lineRunes[3]) &&
 		unicode.IsPrint(lineRunes[4]) &&
 		unicode.IsSpace(lineRunes[5])

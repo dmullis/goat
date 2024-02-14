@@ -88,12 +88,15 @@ func NewCanvas(in io.Reader) (c Canvas) {
 			continue
 		}
 
-		// For each line starting with a UTF-8 subscript numeral,
-		// the remainder of the line is assumed to be HTML attribute specifications
-		// that have meaning either to <text> elements, or to an anchor <a> element
-		// that will enclose a contiguous run of the <text> elements.
-		if isAnchorSpecifier(lineRunes) {
-			c.parseAnchorSpecifier(lineRunes, anchorSelector(line+1))
+		// If a comment line, handle here
+		if lineRunes[0] == '#' {
+			// For each comment line with validly-formatted anchor keys in columns 2-6
+			// the remainder of the line is assumed to be HTML attribute specifications
+			// that have meaning either to <text> elements, or to an anchor <a> element
+			// that will enclose a contiguous run of the <text> elements.
+			if isAnchorSpecifier(lineRunes) {
+				c.parseAnchorSpecifier(lineRunes, anchorSelector(line+1))
+			}
 			continue
 		}
 

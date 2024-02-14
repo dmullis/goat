@@ -8,12 +8,11 @@ import (
 )
 
 type SVG struct {
-	Width  int
-	Height int
 	SVGConfig
-	anchorSet
 
-	Body   string
+	Width,
+	Height int
+	anchorSet
 }
 
 func className(aS anchorSelector) string {
@@ -21,7 +20,7 @@ func className(aS anchorSelector) string {
 }
 
 // See: https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme
-func (s SVG) String() string {
+func (s SVG) Headers() string {
 	config := s.SVGConfig
 	svgElem := fmt.Sprintf(
 		"<svg xmlns='%s' version='%s' height='%d' width='%d'" +
@@ -34,9 +33,10 @@ func (s SVG) String() string {
 		config.FontSize,
 	)
 
-	// X  Map iteration is non-deterministic -- but regression testing requires deterministic output.
-	//    Furthermore, debugging is easier if order of CSS class definitions in SVG
-	//    matches that of source TXT.
+	// Make order of CSS class definitions in SVG text
+	// match that of source TXT -- not possible with map iteration:
+	//    1. regression testing requires deterministic output
+	//    2. easier debugging
 	var anchorClasses, anchorDarkClasses string
 	for _, anchorSelector := range s.anchorSet.Selectors {
 		name := className(anchorSelector)
@@ -62,8 +62,7 @@ text {
 path {
     fill: none;
 }
-%s
-@media (prefers-color-scheme: dark) {
+%s@media (prefers-color-scheme: dark) {
     svg {
       color-scheme: dark;
       color: %s;
@@ -76,7 +75,7 @@ path {
 		config.SvgColorDarkScheme,
 		anchorDarkClasses)
 
-	return svgElem + style + s.Body + "</svg>\n"
+	return svgElem + style
 }
 
 func writeBytes(out io.Writer, format string, args ...interface{}) {
@@ -418,8 +417,8 @@ func (tD *textDrawer) draw(out io.Writer, t Text) {
 
 	if anchorSelector, found := aS.Closes[c_rune]; found {
 		if len(tD.stack) == 0 {
-			log.Panicf("close key '%c' found, but no matching open key",
-				c_rune)
+			log.Panicf("close key '%c' found at %#v, but no matching open key",
+				c_rune, t.start)
 		}
 
 		payload := aS.payload[anchorSelector]
@@ -428,8 +427,8 @@ func (tD *textDrawer) draw(out io.Writer, t Text) {
 
 		if expectedAI := tD.stack[len(tD.stack)-1]; expectedAI != anchorSelector {
 			openRune := findAnchorKey(expectedAI, aS.Opens)
-			log.Panicf("mismatched open and close anchor keys: '%c' '%c'",
-				openRune, c_rune)
+			log.Panicf("earlier open key '%c' does not match closing anchor key '%c' at %#v",
+				openRune, c_rune, t.start)
 		}
 		tD.stack = tD.stack[:len(tD.stack)-1]
 		writeBytes(out, "</a>\n")
@@ -442,7 +441,7 @@ func (tD *textDrawer) draw(out io.Writer, t Text) {
 		writeBytes(out, "<a class='%s' %s>\n",
 			className(anchorSelector),
 			payload.Attributes)
-		
+
 		str = string(payload.Replacements[0])
 	}
 	finalDraw(out, t.start.asPixel(), str)

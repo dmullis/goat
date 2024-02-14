@@ -1,24 +1,40 @@
 /*
-Package goat formats "ASCII-art" drawings into Github-flavored Markdown.
+Package goat formats "ASCII-art" drawings into SVG image files.
 
  <goat>
- API
-                            BuildAndWriteSVG()
-                               .----------.
-     ASCII-art                |            |                      Markdown
-      ----------------------->|            +------------------------->
-                              |            |
-                               '----------'
-   · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
- internal
+               «BuildAndWriteSVG(io.Reader, io.Writer, SVGConfig)
+                             .----------.
+   ASCII-art                |            |                        SVG
+    ----------------------->|            +------------------------->
+                            |            |
+                         ·   '----------'  ·
+                       ·                      ·
+     · · · · · · · · ·                          · · · · · · · · · · · ·
+   ·                                                                    ·
 
-                                Canvas{}
-               NewCanvas() .-------------------.  WriteSVGBody()
-                           |                   |    .-------.
-     ASCII-art    .--.     | data map[x,y]rune |   |  SVG{}  |    Markdown
-      ---------->|    +--->| text map[x,y]rune +-->|         +------->
-                  '--'     |                   |   |         |
-                           '-------------------'    '-------'
+
+                                          «SVG.Headers()
+                                            .--------.    .---------------.
+                                           |          |   | anchor classes|
+                                        .->|          +-->|               |
+  «NewCanvas() .--------------------.  |   |          |   + · · · · · · · +
+               | Canvas{            |  |    '--------'    |               |
+       .--.    |  data map[x,y]rune +-'                   |               |
+  --->|    +-->|  text map[x,y]rune +-.  «WriteSVGBody()  |  graphics +   |
+       '--'    | }                  |  |    .------.      |  anchor +     |
+               '--------------------'  |   |Drawable|     |  text elements|
+                                        '->|«.draw()+---->|               |
+                                           |        |     |               |
+                                            '------'      '-------+-------'
+                                                                  |
+                                                                  v
+                                                              .-------.
+                                                             |         |    SVG
+                                                             |         +----->
+                                                             |         |
+                                                              '-------'
+                                                            «writeBytes()
+#«) ) fill:#01B -- fill:#BEF
  </goat>
 */
 package goat
@@ -75,19 +91,24 @@ func InitFromFlags(svgConfig *SVGConfig) {
 func BuildAndWriteSVG(src io.Reader, dst io.Writer, svgConfig SVGConfig) {
 
 	canvas := NewCanvas(src)
-	var buff bytes.Buffer
-	canvas.WriteSVGBody(&buff)
+	// Instantiation of 'canvas' is complete at this point -- no further modification.
+
+	var body bytes.Buffer
+	canvas.WriteSVGBody(&body)
 
 	svg := SVG{
+		SVGConfig: svgConfig,
+
 		Width:	canvas.widthScreen(),
 		Height: canvas.heightScreen(),
-		SVGConfig: svgConfig,
 		anchorSet: canvas.anchorSet,
-
-		Body:	buff.String(),  // body
 	}
 
-	writeBytes(dst, svg.String())
+	// Concatenate headers, body, trailer
+	fileString := svg.Headers() + body.String() + "</svg>\n"
+
+	// Write out to SVG file
+	writeBytes(dst, fileString)
 }
 
 
