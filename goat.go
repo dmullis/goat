@@ -1,17 +1,16 @@
 /*
-Package goat formats "ASCII-art" drawings into SVG image files.
-
  <goat>
-               «BuildAndWriteSVG(io.Reader, io.Writer, SVGConfig)
-                             .----------.
-   ASCII-art                |            |                        SVG
-    ----------------------->|            +------------------------->
-                            |            |
-                         ·   '----------'  ·
-                       ·                      ·
-     · · · · · · · · ·                          · · · · · · · · · · · ·
-   ·                                                                    ·
+Package goat formats "ASCII-art" drawings, actually,₂Unicode-art² into SVG image files.
 
+               «BuildAndWriteSVG(io.Reader, io.Writer, SVGConfig)
+                               .----------.
+  ₁ASCII¹art                  |            |                        ₃SVG³
+    ------------------------->|            +-------------------------->
+                              |            |
+                           ·   '----------'  ·
+                         ·                     ·
+     · · · · · · · · · ·                         · · · · · · · · · · · ·
+   ·                                                                     ·
 
                                           «SVG.Headers()
                                             .--------.    .---------------.
@@ -29,12 +28,15 @@ Package goat formats "ASCII-art" drawings into SVG image files.
                                                                   |
                                                                   v
                                                               .-------.
-                                                             |         |    SVG
+                                                             |         |   ₃SVG³
                                                              |         +----->
                                                              |         |
                                                               '-------'
                                                             «writeBytes()
-#«) ) fill:#01B -- fill:#BEF
+#₁¹ -  href="https://www.rfc-editor.org/rfc/rfc20.txt"
+#₂² ,  href="https://unicode.org"
+#₃³    href="https://svgwg.org"
+#«) )  fill:#01B -- fill:#BEF
  </goat>
 */
 package goat

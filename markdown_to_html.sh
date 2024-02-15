@@ -43,6 +43,10 @@ MARKED_PREAMBLE='<!-- CSS values specific to local "marked" CLI processor, not t
   a {
     color: '$svg_color_light_scheme';
   }
+  code {
+     background-color: #EEE;
+  }
+
   @media (prefers-color-scheme: dark) {
      body {
        background-color: '$svg_color_light_scheme';
@@ -51,7 +55,11 @@ MARKED_PREAMBLE='<!-- CSS values specific to local "marked" CLI processor, not t
      a {
        color: '$svg_color_dark_scheme';
      }
+     code {
+       background-color: #444;
+     }
   }
+
   h4 {
     /* Tighten grouping of "func Foo()" et al. with following <code> */
     margin-block-end: 0.8em;

@@ -1,3 +1,9 @@
+  The default color of text and graphics both is specified by
+  the«goat»₇svg-color-dark-scheme⁷or ₇svg-color-light-scheme⁷CLI args.
+  The CLI-specified color is inherited by the 'fill' attribute of Goat's output
+  SVG <text> elements, from₆currentColor⁶as set by CSS in Goat's output SVG header.
+
+  Text decoration options are documented by the₄Mozilla Developer's Network⁴
 
           .               .                .               .--- 1          .-- 1     / 1
          / \              |                |           .---+            .-+         +
@@ -8,5 +14,17 @@
      1   2 3   4  { 1   2   3   4   [1   2   3   4] }      '--- 4          '-- 4     \ 4
 
 
-#[][] font-style:oblique
 #{}   fill:#A00 href="https://github.com" font-weight:bold -- fill:#FCC
+#«»   style="font-weight:bold"
+#₄⁴ . fill:#048 font-weight:bold text-decoration:underline href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#font_style_font_weight_text_transform_and_text_decoration' -- fill:#0CF
+#₆⁶   fill:#04F style="text-decoration:underline;" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword' -- fill:#0CF
+#₇⁷-  fill:currentColor text-decoration:underline href='https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme'
+#[][] font-style:oblique
+#\\\\\\
+# \\\\\\
+#  \\\\\`--- SPACE in column 6
+#   \\\\`--- text replacement for closing anchor key (in column 3)
+#    \\\`--- text replacement for opening anchor key (in column 2)
+#     \\`--- closing key for anchor wrapping                     
+#      \`--- opening key for anchor wrapping                     
+#       `--- '#' in column 1

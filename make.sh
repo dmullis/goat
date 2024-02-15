@@ -65,12 +65,13 @@ go test -run . -v \
 # <svg> elements.
 #  - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 #
-# XX  Build an executable locally, for ease of debugging,
-# thereby preserving the pre-hoc binary in some GOPATH dir for ease if comparison.
-go run ./cmd/goat <examples/trees.txt \
+go run ./cmd/goat <examples/overlaps.txt \
    -svg-color-dark-scheme ${github_blue_color} \
    -svg-color-light-scheme ${github_blue_color} \
-   >trees.mid-blue.svg
+   >overlaps.mid-blue.svg
+
+# XX  ? Build a goat executable locally, for ease of debugging,
+#       thereby preserving the pre-hoc binary in some GOPATH dir for ease of comparison.
 
 # build README.md
 # XX  Complication: filenames want to use '-', but template identifiers disallow them.
