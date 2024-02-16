@@ -1,10 +1,11 @@
 package goat
 
+// XX  Simplify to closure functions rather than channels?
+//      X Callers currently use 'range' -- rewrite would be required.
 type canvasIterator func(width int, height int) chan Index
 
-func upDown(width int, height int) chan Index {
-	c := make(chan Index, width*height)
-
+func upDownMinor(width int, height int) chan Index {
+	c := make(chan Index)
 	go func() {
 		for w := 0; w < width; w++ {
 			for h := 0; h < height; h++ {
@@ -13,28 +14,24 @@ func upDown(width int, height int) chan Index {
 		}
 		close(c)
 	}()
-
 	return c
 }
 
-func leftRight(width int, height int) chan Index {
-	c := make(chan Index, width*height)
-
-	// Transpose an upDown order.
+func leftRightMinor(width int, height int) chan Index {
+	c := make(chan Index)
 	go func() {
-		for i := range upDown(height, width) {
-			c <- Index{i.Y, i.X}   // X  transpose x and y
+		for h := 0; h < height; h++ {
+			for w := 0; w < width; w++ {
+				c <- Index{w, h}
+			}
 		}
-
 		close(c)
 	}()
-
 	return c
 }
 
 func diagDown(width int, height int) chan Index {
-	c := make(chan Index, width*height)
-
+	c := make(chan Index)
 	go func() {
 		minSum := -height + 1
 		maxSum := width
@@ -50,13 +47,11 @@ func diagDown(width int, height int) chan Index {
 		}
 		close(c)
 	}()
-
 	return c
 }
 
 func diagUp(width int, height int) chan Index {
-	c := make(chan Index, width*height)
-
+	c := make(chan Index)
 	go func() {
 		maxSum := width + height - 2
 
@@ -71,6 +66,5 @@ func diagUp(width int, height int) chan Index {
 		}
 		close(c)
 	}()
-
 	return c
 }
