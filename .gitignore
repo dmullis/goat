@@ -2,7 +2,6 @@
 .DS_Store
 
 vendor
-examples/*.svg
 
 cmd/tmpl-expand/tmpl-expand
 cmd/goat/goat
