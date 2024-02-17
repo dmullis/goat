@@ -1,7 +1,7 @@
 <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='137' width='720' fill='currentColor' font-family='monospace' font-size='1.1em' text-anchor='middle' >
 <style type="text/css">
 svg {
-    color: #000000;
+    color: #2F81F7;
     stroke: currentColor;
 }
 text {
@@ -13,7 +13,7 @@ path {
 @media (prefers-color-scheme: dark) {
     svg {
       color-scheme: dark;
-      color: #FFFFFF;
+      color: #2F81F7;
     }
 }
 </style>

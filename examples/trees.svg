@@ -1,110 +1,457 @@
-<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='153' width='712' font-family='Menlo,Lucida Console,monospace'>
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='265' width='712' fill='currentColor' font-family='monospace' font-size='1.1em' text-anchor='middle' >
 <style type="text/css">
 svg {
-   color: #000000;
+    color: #000000;
+    stroke: currentColor;
 }
+text {
+    stroke: none;
+}
+path {
+    fill: none;
+}
+._17 { fill:#A00; font-weight:bold;}
+._18 {}
+._19 { fill:#048; font-weight:bold; text-decoration:underline;}
+._20 { fill:#04F;}
+._21 { fill:currentColor; text-decoration:underline;}
+._22 { font-style:oblique;}
 @media (prefers-color-scheme: dark) {
-   svg {
+    svg {
+      color-scheme: dark;
       color: #FFFFFF;
-   }
+    }
+    ._17 { fill:#FCC;}
+    ._18 {}
+    ._19 { fill:#0CF;}
+    ._20 { fill:#0CF;}
+    ._21 {}
+    ._22 {}
 }
 </style>
 <g transform='translate(8,16)'>
-<path d='M 472,16 L 496,16' fill='none' stroke='currentColor'></path>
-<path d='M 608,16 L 616,16' fill='none' stroke='currentColor'></path>
-<path d='M 440,32 L 472,32' fill='none' stroke='currentColor'></path>
-<path d='M 584,32 L 592,32' fill='none' stroke='currentColor'></path>
-<path d='M 176,48 L 208,48' fill='none' stroke='currentColor'></path>
-<path d='M 208,48 L 240,48' fill='none' stroke='currentColor'></path>
-<path d='M 328,48 L 344,48' fill='none' stroke='currentColor'></path>
-<path d='M 344,48 L 360,48' fill='none' stroke='currentColor'></path>
-<path d='M 472,48 L 496,48' fill='none' stroke='currentColor'></path>
-<path d='M 608,48 L 616,48' fill='none' stroke='currentColor'></path>
-<path d='M 416,64 L 440,64' fill='none' stroke='currentColor'></path>
-<path d='M 544,64 L 568,64' fill='none' stroke='currentColor'></path>
-<path d='M 160,80 L 176,80' fill='none' stroke='currentColor'></path>
-<path d='M 176,80 L 192,80' fill='none' stroke='currentColor'></path>
-<path d='M 224,80 L 240,80' fill='none' stroke='currentColor'></path>
-<path d='M 240,80 L 256,80' fill='none' stroke='currentColor'></path>
-<path d='M 472,80 L 496,80' fill='none' stroke='currentColor'></path>
-<path d='M 608,80 L 616,80' fill='none' stroke='currentColor'></path>
-<path d='M 440,96 L 472,96' fill='none' stroke='currentColor'></path>
-<path d='M 584,96 L 592,96' fill='none' stroke='currentColor'></path>
-<path d='M 472,112 L 496,112' fill='none' stroke='currentColor'></path>
-<path d='M 608,112 L 616,112' fill='none' stroke='currentColor'></path>
-<path d='M 160,80 L 160,96' fill='none' stroke='currentColor'></path>
-<path d='M 176,48 L 176,80' fill='none' stroke='currentColor'></path>
-<path d='M 192,80 L 192,96' fill='none' stroke='currentColor'></path>
-<path d='M 208,16 L 208,48' fill='none' stroke='currentColor'></path>
-<path d='M 224,80 L 224,96' fill='none' stroke='currentColor'></path>
-<path d='M 240,48 L 240,80' fill='none' stroke='currentColor'></path>
-<path d='M 256,80 L 256,96' fill='none' stroke='currentColor'></path>
-<path d='M 312,64 L 312,80' fill='none' stroke='currentColor'></path>
-<path d='M 344,16 L 344,48' fill='none' stroke='currentColor'></path>
-<path d='M 376,64 L 376,80' fill='none' stroke='currentColor'></path>
-<path d='M 440,32 L 440,64' fill='none' stroke='currentColor'></path>
-<path d='M 440,64 L 440,96' fill='none' stroke='currentColor'></path>
-<path d='M 472,16 L 472,32' fill='none' stroke='currentColor'></path>
-<path d='M 472,32 L 472,48' fill='none' stroke='currentColor'></path>
-<path d='M 472,80 L 472,96' fill='none' stroke='currentColor'></path>
-<path d='M 472,96 L 472,112' fill='none' stroke='currentColor'></path>
-<path d='M 568,48 L 568,64' fill='none' stroke='currentColor'></path>
-<path d='M 568,64 L 568,80' fill='none' stroke='currentColor'></path>
-<path d='M 40,96 L 56,64' fill='none' stroke='currentColor'></path>
-<path d='M 56,64 L 80,16' fill='none' stroke='currentColor'></path>
-<path d='M 88,96 L 104,64' fill='none' stroke='currentColor'></path>
-<path d='M 656,64 L 672,32' fill='none' stroke='currentColor'></path>
-<path d='M 672,32 L 680,16' fill='none' stroke='currentColor'></path>
-<path d='M 672,96 L 680,80' fill='none' stroke='currentColor'></path>
-<path d='M 56,64 L 72,96' fill='none' stroke='currentColor'></path>
-<path d='M 80,16 L 104,64' fill='none' stroke='currentColor'></path>
-<path d='M 104,64 L 120,96' fill='none' stroke='currentColor'></path>
-<path d='M 656,64 L 672,96' fill='none' stroke='currentColor'></path>
-<path d='M 672,96 L 680,112' fill='none' stroke='currentColor'></path>
-<path d='M 672,32 L 680,48' fill='none' stroke='currentColor'></path>
-<path d='M 608,16 A 16,16 0 0,0 592,32' fill='none' stroke='currentColor'></path>
-<path d='M 584,32 A 16,16 0 0,0 568,48' fill='none' stroke='currentColor'></path>
-<path d='M 328,48 A 16,16 0 0,0 312,64' fill='none' stroke='currentColor'></path>
-<path d='M 360,48 A 16,16 0 0,1 376,64' fill='none' stroke='currentColor'></path>
-<path d='M 592,32 A 16,16 0 0,0 608,48' fill='none' stroke='currentColor'></path>
-<path d='M 312,80 A 16,16 0 0,0 296,96' fill='none' stroke='currentColor'></path>
-<path d='M 312,80 A 16,16 0 0,1 328,96' fill='none' stroke='currentColor'></path>
-<path d='M 376,80 A 16,16 0 0,0 360,96' fill='none' stroke='currentColor'></path>
-<path d='M 376,80 A 16,16 0 0,1 392,96' fill='none' stroke='currentColor'></path>
-<path d='M 608,80 A 16,16 0 0,0 592,96' fill='none' stroke='currentColor'></path>
-<path d='M 568,80 A 16,16 0 0,0 584,96' fill='none' stroke='currentColor'></path>
-<path d='M 592,96 A 16,16 0 0,0 608,112' fill='none' stroke='currentColor'></path>
-<style>
-  text {
-       text-anchor: middle;
-       font-family: "Menlo","Lucida Console","monospace";
-       fill: currentColor;
-       font-size: 1em;
-  }
-</style>
-<text x='512' y='20'>1</text>
-<text x='632' y='20'>1</text>
-<text x='696' y='20'>1</text>
-<text x='512' y='52'>2</text>
-<text x='632' y='52'>2</text>
-<text x='696' y='52'>2</text>
-<text x='512' y='84'>3</text>
-<text x='632' y='84'>3</text>
-<text x='696' y='84'>3</text>
-<text x='40' y='116'>1</text>
-<text x='72' y='116'>2</text>
-<text x='88' y='116'>3</text>
-<text x='120' y='116'>4</text>
-<text x='160' y='116'>1</text>
-<text x='192' y='116'>2</text>
-<text x='224' y='116'>3</text>
-<text x='256' y='116'>4</text>
-<text x='296' y='116'>1</text>
-<text x='328' y='116'>2</text>
-<text x='360' y='116'>3</text>
-<text x='392' y='116'>4</text>
-<text x='512' y='116'>4</text>
-<text x='632' y='116'>4</text>
-<text x='696' y='116'>4</text>
+<path d='M 472,112 L 496,112'></path>
+<path d='M 608,112 L 616,112'></path>
+<path d='M 440,128 L 472,128'></path>
+<path d='M 584,128 L 592,128'></path>
+<path d='M 176,144 L 208,144'></path>
+<path d='M 208,144 L 240,144'></path>
+<path d='M 328,144 L 344,144'></path>
+<path d='M 344,144 L 360,144'></path>
+<path d='M 472,144 L 496,144'></path>
+<path d='M 608,144 L 616,144'></path>
+<path d='M 416,160 L 440,160'></path>
+<path d='M 544,160 L 568,160'></path>
+<path d='M 160,176 L 176,176'></path>
+<path d='M 176,176 L 192,176'></path>
+<path d='M 224,176 L 240,176'></path>
+<path d='M 240,176 L 256,176'></path>
+<path d='M 472,176 L 496,176'></path>
+<path d='M 608,176 L 616,176'></path>
+<path d='M 440,192 L 472,192'></path>
+<path d='M 584,192 L 592,192'></path>
+<path d='M 472,208 L 496,208'></path>
+<path d='M 608,208 L 616,208'></path>
+<path d='M 160,176 L 160,192'></path>
+<path d='M 176,144 L 176,176'></path>
+<path d='M 192,176 L 192,192'></path>
+<path d='M 208,112 L 208,144'></path>
+<path d='M 224,176 L 224,192'></path>
+<path d='M 240,144 L 240,176'></path>
+<path d='M 256,176 L 256,192'></path>
+<path d='M 312,160 L 312,176'></path>
+<path d='M 344,112 L 344,144'></path>
+<path d='M 376,160 L 376,176'></path>
+<path d='M 440,128 L 440,160'></path>
+<path d='M 440,160 L 440,192'></path>
+<path d='M 472,112 L 472,128'></path>
+<path d='M 472,128 L 472,144'></path>
+<path d='M 472,176 L 472,192'></path>
+<path d='M 472,192 L 472,208'></path>
+<path d='M 568,144 L 568,160'></path>
+<path d='M 568,160 L 568,176'></path>
+<path d='M 40,192 L 56,160'></path>
+<path d='M 56,160 L 80,112'></path>
+<path d='M 88,192 L 104,160'></path>
+<path d='M 656,160 L 672,128'></path>
+<path d='M 672,128 L 680,112'></path>
+<path d='M 672,192 L 680,176'></path>
+<path d='M 56,160 L 72,192'></path>
+<path d='M 80,112 L 104,160'></path>
+<path d='M 104,160 L 120,192'></path>
+<path d='M 656,160 L 672,192'></path>
+<path d='M 672,192 L 680,208'></path>
+<path d='M 672,128 L 680,144'></path>
+<path d='M 608,112 A 16,16 0 0,0 592,128'></path>
+<path d='M 584,128 A 16,16 0 0,0 568,144'></path>
+<path d='M 328,144 A 16,16 0 0,0 312,160'></path>
+<path d='M 360,144 A 16,16 0 0,1 376,160'></path>
+<path d='M 592,128 A 16,16 0 0,0 608,144'></path>
+<path d='M 312,176 A 16,16 0 0,0 296,192'></path>
+<path d='M 312,176 A 16,16 0 0,1 328,192'></path>
+<path d='M 376,176 A 16,16 0 0,0 360,192'></path>
+<path d='M 376,176 A 16,16 0 0,1 392,192'></path>
+<path d='M 608,176 A 16,16 0 0,0 592,192'></path>
+<path d='M 568,176 A 16,16 0 0,0 584,192'></path>
+<path d='M 592,192 A 16,16 0 0,0 608,208'></path>
+<text x='16' y='4'>T</text>
+<text x='24' y='4'>h</text>
+<text x='32' y='4'>e</text>
+<text x='48' y='4'>d</text>
+<text x='56' y='4'>e</text>
+<text x='64' y='4'>f</text>
+<text x='72' y='4'>a</text>
+<text x='80' y='4'>u</text>
+<text x='88' y='4'>l</text>
+<text x='96' y='4'>t</text>
+<text x='112' y='4'>c</text>
+<text x='120' y='4'>o</text>
+<text x='128' y='4'>l</text>
+<text x='136' y='4'>o</text>
+<text x='144' y='4'>r</text>
+<text x='160' y='4'>o</text>
+<text x='168' y='4'>f</text>
+<text x='184' y='4'>t</text>
+<text x='192' y='4'>e</text>
+<text x='200' y='4'>x</text>
+<text x='208' y='4'>t</text>
+<text x='224' y='4'>a</text>
+<text x='232' y='4'>n</text>
+<text x='240' y='4'>d</text>
+<text x='256' y='4'>g</text>
+<text x='264' y='4'>r</text>
+<text x='272' y='4'>a</text>
+<text x='280' y='4'>p</text>
+<text x='288' y='4'>h</text>
+<text x='296' y='4'>i</text>
+<text x='304' y='4'>c</text>
+<text x='312' y='4'>s</text>
+<text x='328' y='4'>b</text>
+<text x='336' y='4'>o</text>
+<text x='344' y='4'>t</text>
+<text x='352' y='4'>h</text>
+<text x='368' y='4'>i</text>
+<text x='376' y='4'>s</text>
+<text x='392' y='4'>s</text>
+<text x='400' y='4'>p</text>
+<text x='408' y='4'>e</text>
+<text x='416' y='4'>c</text>
+<text x='424' y='4'>i</text>
+<text x='432' y='4'>f</text>
+<text x='440' y='4'>i</text>
+<text x='448' y='4'>e</text>
+<text x='456' y='4'>d</text>
+<text x='472' y='4'>b</text>
+<text x='480' y='4'>y</text>
+<text x='16' y='20'>t</text>
+<text x='24' y='20'>h</text>
+<text x='32' y='20'>e</text>
+<a class='_18'  style="font-weight:bold">
+<text x='40' y='20'> </text>
+<text x='48' y='20'>g</text>
+<text x='56' y='20'>o</text>
+<text x='64' y='20'>a</text>
+<text x='72' y='20'>t</text>
+<text x='80' y='20'> </text>
+</a>
+<a class='_21'  href='https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme'>
+<text x='88' y='20'>-</text>
+<text x='96' y='20'>s</text>
+<text x='104' y='20'>v</text>
+<text x='112' y='20'>g</text>
+<text x='120' y='20'>-</text>
+<text x='128' y='20'>c</text>
+<text x='136' y='20'>o</text>
+<text x='144' y='20'>l</text>
+<text x='152' y='20'>o</text>
+<text x='160' y='20'>r</text>
+<text x='168' y='20'>-</text>
+<text x='176' y='20'>d</text>
+<text x='184' y='20'>a</text>
+<text x='192' y='20'>r</text>
+<text x='200' y='20'>k</text>
+<text x='208' y='20'>-</text>
+<text x='216' y='20'>s</text>
+<text x='224' y='20'>c</text>
+<text x='232' y='20'>h</text>
+<text x='240' y='20'>e</text>
+<text x='248' y='20'>m</text>
+<text x='256' y='20'>e</text>
+<text x='264' y='20'> </text>
+</a>
+<text x='272' y='20'>o</text>
+<text x='280' y='20'>r</text>
+<a class='_21'  href='https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme'>
+<text x='296' y='20'>-</text>
+<text x='304' y='20'>s</text>
+<text x='312' y='20'>v</text>
+<text x='320' y='20'>g</text>
+<text x='328' y='20'>-</text>
+<text x='336' y='20'>c</text>
+<text x='344' y='20'>o</text>
+<text x='352' y='20'>l</text>
+<text x='360' y='20'>o</text>
+<text x='368' y='20'>r</text>
+<text x='376' y='20'>-</text>
+<text x='384' y='20'>l</text>
+<text x='392' y='20'>i</text>
+<text x='400' y='20'>g</text>
+<text x='408' y='20'>h</text>
+<text x='416' y='20'>t</text>
+<text x='424' y='20'>-</text>
+<text x='432' y='20'>s</text>
+<text x='440' y='20'>c</text>
+<text x='448' y='20'>h</text>
+<text x='456' y='20'>e</text>
+<text x='464' y='20'>m</text>
+<text x='472' y='20'>e</text>
+<text x='480' y='20'> </text>
+</a>
+<text x='488' y='20'>C</text>
+<text x='496' y='20'>L</text>
+<text x='504' y='20'>I</text>
+<text x='520' y='20'>a</text>
+<text x='528' y='20'>r</text>
+<text x='536' y='20'>g</text>
+<text x='544' y='20'>s</text>
+<text x='552' y='20'>.</text>
+<text x='16' y='36'>T</text>
+<text x='24' y='36'>h</text>
+<text x='32' y='36'>e</text>
+<text x='48' y='36'>C</text>
+<text x='56' y='36'>L</text>
+<text x='64' y='36'>I</text>
+<text x='72' y='36'>-</text>
+<text x='80' y='36'>s</text>
+<text x='88' y='36'>p</text>
+<text x='96' y='36'>e</text>
+<text x='104' y='36'>c</text>
+<text x='112' y='36'>i</text>
+<text x='120' y='36'>f</text>
+<text x='128' y='36'>i</text>
+<text x='136' y='36'>e</text>
+<text x='144' y='36'>d</text>
+<text x='160' y='36'>c</text>
+<text x='168' y='36'>o</text>
+<text x='176' y='36'>l</text>
+<text x='184' y='36'>o</text>
+<text x='192' y='36'>r</text>
+<text x='208' y='36'>i</text>
+<text x='216' y='36'>s</text>
+<text x='232' y='36'>i</text>
+<text x='240' y='36'>n</text>
+<text x='248' y='36'>h</text>
+<text x='256' y='36'>e</text>
+<text x='264' y='36'>r</text>
+<text x='272' y='36'>i</text>
+<text x='280' y='36'>t</text>
+<text x='288' y='36'>e</text>
+<text x='296' y='36'>d</text>
+<text x='312' y='36'>b</text>
+<text x='320' y='36'>y</text>
+<text x='336' y='36'>t</text>
+<text x='344' y='36'>h</text>
+<text x='352' y='36'>e</text>
+<text x='368' y='36'>'</text>
+<text x='376' y='36'>f</text>
+<text x='384' y='36'>i</text>
+<text x='392' y='36'>l</text>
+<text x='400' y='36'>l</text>
+<text x='408' y='36'>'</text>
+<text x='424' y='36'>a</text>
+<text x='432' y='36'>t</text>
+<text x='440' y='36'>t</text>
+<text x='448' y='36'>r</text>
+<text x='456' y='36'>i</text>
+<text x='464' y='36'>b</text>
+<text x='472' y='36'>u</text>
+<text x='480' y='36'>t</text>
+<text x='488' y='36'>e</text>
+<text x='504' y='36'>o</text>
+<text x='512' y='36'>f</text>
+<text x='528' y='36'>G</text>
+<text x='536' y='36'>o</text>
+<text x='544' y='36'>a</text>
+<text x='552' y='36'>t</text>
+<text x='560' y='36'>'</text>
+<text x='568' y='36'>s</text>
+<text x='584' y='36'>o</text>
+<text x='592' y='36'>u</text>
+<text x='600' y='36'>t</text>
+<text x='608' y='36'>p</text>
+<text x='616' y='36'>u</text>
+<text x='624' y='36'>t</text>
+<text x='16' y='52'>S</text>
+<text x='24' y='52'>V</text>
+<text x='32' y='52'>G</text>
+<text x='48' y='52'>&lt;</text>
+<text x='56' y='52'>t</text>
+<text x='64' y='52'>e</text>
+<text x='72' y='52'>x</text>
+<text x='80' y='52'>t</text>
+<text x='88' y='52'>&gt;</text>
+<text x='104' y='52'>e</text>
+<text x='112' y='52'>l</text>
+<text x='120' y='52'>e</text>
+<text x='128' y='52'>m</text>
+<text x='136' y='52'>e</text>
+<text x='144' y='52'>n</text>
+<text x='152' y='52'>t</text>
+<text x='160' y='52'>s</text>
+<text x='168' y='52'>,</text>
+<text x='184' y='52'>f</text>
+<text x='192' y='52'>r</text>
+<text x='200' y='52'>o</text>
+<text x='208' y='52'>m</text>
+<a class='_20'  style="text-decoration:underline;" href='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword'>
+<text x='216' y='52'> </text>
+<text x='224' y='52'>c</text>
+<text x='232' y='52'>u</text>
+<text x='240' y='52'>r</text>
+<text x='248' y='52'>r</text>
+<text x='256' y='52'>e</text>
+<text x='264' y='52'>n</text>
+<text x='272' y='52'>t</text>
+<text x='280' y='52'>C</text>
+<text x='288' y='52'>o</text>
+<text x='296' y='52'>l</text>
+<text x='304' y='52'>o</text>
+<text x='312' y='52'>r</text>
+<text x='320' y='52'> </text>
+</a>
+<text x='328' y='52'>a</text>
+<text x='336' y='52'>s</text>
+<text x='352' y='52'>s</text>
+<text x='360' y='52'>e</text>
+<text x='368' y='52'>t</text>
+<text x='384' y='52'>b</text>
+<text x='392' y='52'>y</text>
+<text x='408' y='52'>C</text>
+<text x='416' y='52'>S</text>
+<text x='424' y='52'>S</text>
+<text x='440' y='52'>i</text>
+<text x='448' y='52'>n</text>
+<text x='464' y='52'>G</text>
+<text x='472' y='52'>o</text>
+<text x='480' y='52'>a</text>
+<text x='488' y='52'>t</text>
+<text x='496' y='52'>'</text>
+<text x='504' y='52'>s</text>
+<text x='520' y='52'>o</text>
+<text x='528' y='52'>u</text>
+<text x='536' y='52'>t</text>
+<text x='544' y='52'>p</text>
+<text x='552' y='52'>u</text>
+<text x='560' y='52'>t</text>
+<text x='576' y='52'>S</text>
+<text x='584' y='52'>V</text>
+<text x='592' y='52'>G</text>
+<text x='608' y='52'>h</text>
+<text x='616' y='52'>e</text>
+<text x='624' y='52'>a</text>
+<text x='632' y='52'>d</text>
+<text x='640' y='52'>e</text>
+<text x='648' y='52'>r</text>
+<text x='656' y='52'>.</text>
+<text x='16' y='84'>T</text>
+<text x='24' y='84'>e</text>
+<text x='32' y='84'>x</text>
+<text x='40' y='84'>t</text>
+<text x='56' y='84'>d</text>
+<text x='64' y='84'>e</text>
+<text x='72' y='84'>c</text>
+<text x='80' y='84'>o</text>
+<text x='88' y='84'>r</text>
+<text x='96' y='84'>a</text>
+<text x='104' y='84'>t</text>
+<text x='112' y='84'>i</text>
+<text x='120' y='84'>o</text>
+<text x='128' y='84'>n</text>
+<text x='144' y='84'>o</text>
+<text x='152' y='84'>p</text>
+<text x='160' y='84'>t</text>
+<text x='168' y='84'>i</text>
+<text x='176' y='84'>o</text>
+<text x='184' y='84'>n</text>
+<text x='192' y='84'>s</text>
+<text x='208' y='84'>a</text>
+<text x='216' y='84'>r</text>
+<text x='224' y='84'>e</text>
+<text x='240' y='84'>d</text>
+<text x='248' y='84'>o</text>
+<text x='256' y='84'>c</text>
+<text x='264' y='84'>u</text>
+<text x='272' y='84'>m</text>
+<text x='280' y='84'>e</text>
+<text x='288' y='84'>n</text>
+<text x='296' y='84'>t</text>
+<text x='304' y='84'>e</text>
+<text x='312' y='84'>d</text>
+<text x='328' y='84'>b</text>
+<text x='336' y='84'>y</text>
+<text x='352' y='84'>t</text>
+<text x='360' y='84'>h</text>
+<text x='368' y='84'>e</text>
+<a class='_19'  href='https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#font_style_font_weight_text_transform_and_text_decoration'>
+<text x='376' y='84'> </text>
+<text x='384' y='84'>M</text>
+<text x='392' y='84'>o</text>
+<text x='400' y='84'>z</text>
+<text x='408' y='84'>i</text>
+<text x='416' y='84'>l</text>
+<text x='424' y='84'>l</text>
+<text x='432' y='84'>a</text>
+<text x='448' y='84'>D</text>
+<text x='456' y='84'>e</text>
+<text x='464' y='84'>v</text>
+<text x='472' y='84'>e</text>
+<text x='480' y='84'>l</text>
+<text x='488' y='84'>o</text>
+<text x='496' y='84'>p</text>
+<text x='504' y='84'>e</text>
+<text x='512' y='84'>r</text>
+<text x='520' y='84'>'</text>
+<text x='528' y='84'>s</text>
+<text x='544' y='84'>N</text>
+<text x='552' y='84'>e</text>
+<text x='560' y='84'>t</text>
+<text x='568' y='84'>w</text>
+<text x='576' y='84'>o</text>
+<text x='584' y='84'>r</text>
+<text x='592' y='84'>k</text>
+<text x='600' y='84'>.</text>
+</a>
+<text x='512' y='116'>1</text>
+<text x='632' y='116'>1</text>
+<text x='696' y='116'>1</text>
+<text x='512' y='148'>2</text>
+<text x='632' y='148'>2</text>
+<text x='696' y='148'>2</text>
+<text x='512' y='180'>3</text>
+<text x='632' y='180'>3</text>
+<text x='696' y='180'>3</text>
+<text x='40' y='212'>1</text>
+<text x='72' y='212'>2</text>
+<text x='88' y='212'>3</text>
+<text x='120' y='212'>4</text>
+<a class='_17'  href="https://github.com">
+<text x='144' y='212'> </text>
+<text x='160' y='212'>1</text>
+<text x='192' y='212'>2</text>
+<text x='224' y='212'>3</text>
+<text x='256' y='212'>4</text>
+<a class='_22' >
+<text x='288' y='212'>[</text>
+<text x='296' y='212'>1</text>
+<text x='328' y='212'>2</text>
+<text x='360' y='212'>3</text>
+<text x='392' y='212'>4</text>
+<text x='400' y='212'>]</text>
+</a>
+<text x='416' y='212'> </text>
+</a>
+<text x='512' y='212'>4</text>
+<text x='632' y='212'>4</text>
+<text x='696' y='212'>4</text>
 </g>
 </svg>

@@ -1,0 +1,32 @@
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='153' width='72' fill='currentColor' font-family='monospace' font-size='1.1em' text-anchor='middle' >
+<style type="text/css">
+svg {
+    color: #000000;
+    stroke: currentColor;
+}
+text {
+    stroke: none;
+}
+path {
+    fill: none;
+}
+@media (prefers-color-scheme: dark) {
+    svg {
+      color-scheme: dark;
+      color: #FFFFFF;
+    }
+}
+</style>
+<g transform='translate(8,16)'>
+<path d='M 32,0 L 40,0'></path>
+<path d='M 32,64 L 40,64'></path>
+<path d='M 32,96 L 40,96'></path>
+<path d='M 32,128 L 40,128'></path>
+<path d='M 32,0 A 16,16 0 0,1 48,16'></path>
+<path d='M 48,48 A 16,16 0 0,1 32,64'></path>
+<path d='M 32,96 A 16,16 0 0,0 16,112'></path>
+<path d='M 32,96 A 16,16 0 0,1 48,112'></path>
+<path d='M 16,112 A 16,16 0 0,0 32,128'></path>
+<path d='M 48,112 A 16,16 0 0,1 32,128'></path>
+</g>
+</svg>

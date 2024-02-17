@@ -1,96 +1,96 @@
-<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='393' width='152' font-family='Menlo,Lucida Console,monospace'>
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='393' width='152' fill='currentColor' font-family='monospace' font-size='1.1em' text-anchor='middle' >
 <style type="text/css">
 svg {
-   color: #000000;
+    color: #000000;
+    stroke: currentColor;
+}
+text {
+    stroke: none;
+}
+path {
+    fill: none;
 }
 @media (prefers-color-scheme: dark) {
-   svg {
+    svg {
+      color-scheme: dark;
       color: #FFFFFF;
-   }
+    }
 }
 </style>
 <g transform='translate(8,16)'>
-<path d='M 24,288 L 40,288' fill='none' stroke='currentColor'></path>
-<path d='M 40,288 L 56,288' fill='none' stroke='currentColor'></path>
-<path d='M 56,288 L 72,288' fill='none' stroke='currentColor'></path>
-<path d='M 72,288 L 88,288' fill='none' stroke='currentColor'></path>
-<path d='M 24,304 L 40,304' fill='none' stroke='currentColor'></path>
-<path d='M 40,304 L 56,304' fill='none' stroke='currentColor'></path>
-<path d='M 56,304 L 72,304' fill='none' stroke='currentColor'></path>
-<path d='M 72,304 L 88,304' fill='none' stroke='currentColor'></path>
-<path d='M 24,320 L 40,320' fill='none' stroke='currentColor'></path>
-<path d='M 40,320 L 56,320' fill='none' stroke='currentColor'></path>
-<path d='M 56,320 L 72,320' fill='none' stroke='currentColor'></path>
-<path d='M 72,320 L 88,320' fill='none' stroke='currentColor'></path>
-<path d='M 24,336 L 40,336' fill='none' stroke='currentColor'></path>
-<path d='M 40,336 L 56,336' fill='none' stroke='currentColor'></path>
-<path d='M 56,336 L 72,336' fill='none' stroke='currentColor'></path>
-<path d='M 72,336 L 88,336' fill='none' stroke='currentColor'></path>
-<path d='M 24,352 L 40,352' fill='none' stroke='currentColor'></path>
-<path d='M 40,352 L 56,352' fill='none' stroke='currentColor'></path>
-<path d='M 56,352 L 72,352' fill='none' stroke='currentColor'></path>
-<path d='M 72,352 L 88,352' fill='none' stroke='currentColor'></path>
-<path d='M 8,200 L 104,200' fill='none' stroke='currentColor'></path>
-<path d='M 8,216 L 32,216' fill='none' stroke='currentColor'></path>
-<path d='M 32,216 L 56,216' fill='none' stroke='currentColor'></path>
-<path d='M 56,216 L 80,216' fill='none' stroke='currentColor'></path>
-<path d='M 80,216 L 104,216' fill='none' stroke='currentColor'></path>
-<path d='M 8,232 L 32,232' fill='none' stroke='currentColor'></path>
-<path d='M 32,232 L 56,232' fill='none' stroke='currentColor'></path>
-<path d='M 56,232 L 80,232' fill='none' stroke='currentColor'></path>
-<path d='M 80,232 L 104,232' fill='none' stroke='currentColor'></path>
-<path d='M 8,248 L 32,248' fill='none' stroke='currentColor'></path>
-<path d='M 32,248 L 56,248' fill='none' stroke='currentColor'></path>
-<path d='M 56,248 L 80,248' fill='none' stroke='currentColor'></path>
-<path d='M 80,248 L 104,248' fill='none' stroke='currentColor'></path>
-<path d='M 8,264 L 32,264' fill='none' stroke='currentColor'></path>
-<path d='M 32,264 L 56,264' fill='none' stroke='currentColor'></path>
-<path d='M 56,264 L 80,264' fill='none' stroke='currentColor'></path>
-<path d='M 80,264 L 104,264' fill='none' stroke='currentColor'></path>
-<path d='M 8,208 L 8,256' fill='none' stroke='currentColor'></path>
-<path d='M 24,288 L 24,304' fill='none' stroke='currentColor'></path>
-<path d='M 24,304 L 24,320' fill='none' stroke='currentColor'></path>
-<path d='M 24,320 L 24,336' fill='none' stroke='currentColor'></path>
-<path d='M 24,336 L 24,352' fill='none' stroke='currentColor'></path>
-<path d='M 32,208 L 32,256' fill='none' stroke='currentColor'></path>
-<path d='M 40,288 L 40,304' fill='none' stroke='currentColor'></path>
-<path d='M 40,304 L 40,320' fill='none' stroke='currentColor'></path>
-<path d='M 40,320 L 40,336' fill='none' stroke='currentColor'></path>
-<path d='M 40,336 L 40,352' fill='none' stroke='currentColor'></path>
-<path d='M 56,208 L 56,256' fill='none' stroke='currentColor'></path>
-<path d='M 56,288 L 56,304' fill='none' stroke='currentColor'></path>
-<path d='M 56,304 L 56,320' fill='none' stroke='currentColor'></path>
-<path d='M 56,320 L 56,336' fill='none' stroke='currentColor'></path>
-<path d='M 56,336 L 56,352' fill='none' stroke='currentColor'></path>
-<path d='M 72,288 L 72,304' fill='none' stroke='currentColor'></path>
-<path d='M 72,304 L 72,320' fill='none' stroke='currentColor'></path>
-<path d='M 72,320 L 72,336' fill='none' stroke='currentColor'></path>
-<path d='M 72,336 L 72,352' fill='none' stroke='currentColor'></path>
-<path d='M 80,208 L 80,256' fill='none' stroke='currentColor'></path>
-<path d='M 88,288 L 88,304' fill='none' stroke='currentColor'></path>
-<path d='M 88,304 L 88,320' fill='none' stroke='currentColor'></path>
-<path d='M 88,320 L 88,336' fill='none' stroke='currentColor'></path>
-<path d='M 88,336 L 88,352' fill='none' stroke='currentColor'></path>
-<path d='M 104,208 L 104,256' fill='none' stroke='currentColor'></path>
-<path d='M 120,16 L 120,352' fill='none' stroke='currentColor'></path>
-<path d='M 8,200 L 8,208' fill='none' stroke='currentColor'></path>
-<path d='M 8,256 L 8,264' fill='none' stroke='currentColor'></path>
-<path d='M 32,200 L 32,208' fill='none' stroke='currentColor'></path>
-<path d='M 32,256 L 32,264' fill='none' stroke='currentColor'></path>
-<path d='M 56,200 L 56,208' fill='none' stroke='currentColor'></path>
-<path d='M 56,256 L 56,264' fill='none' stroke='currentColor'></path>
-<path d='M 80,200 L 80,208' fill='none' stroke='currentColor'></path>
-<path d='M 80,256 L 80,264' fill='none' stroke='currentColor'></path>
-<path d='M 104,200 L 104,208' fill='none' stroke='currentColor'></path>
-<path d='M 104,256 L 104,264' fill='none' stroke='currentColor'></path>
-<style>
-  text {
-       text-anchor: middle;
-       font-family: "Menlo","Lucida Console","monospace";
-       fill: currentColor;
-       font-size: 1em;
-  }
-</style>
+<path d='M 24,288 L 40,288'></path>
+<path d='M 40,288 L 56,288'></path>
+<path d='M 56,288 L 72,288'></path>
+<path d='M 72,288 L 88,288'></path>
+<path d='M 24,304 L 40,304'></path>
+<path d='M 40,304 L 56,304'></path>
+<path d='M 56,304 L 72,304'></path>
+<path d='M 72,304 L 88,304'></path>
+<path d='M 24,320 L 40,320'></path>
+<path d='M 40,320 L 56,320'></path>
+<path d='M 56,320 L 72,320'></path>
+<path d='M 72,320 L 88,320'></path>
+<path d='M 24,336 L 40,336'></path>
+<path d='M 40,336 L 56,336'></path>
+<path d='M 56,336 L 72,336'></path>
+<path d='M 72,336 L 88,336'></path>
+<path d='M 24,352 L 40,352'></path>
+<path d='M 40,352 L 56,352'></path>
+<path d='M 56,352 L 72,352'></path>
+<path d='M 72,352 L 88,352'></path>
+<path d='M 8,200 L 104,200'></path>
+<path d='M 8,216 L 32,216'></path>
+<path d='M 32,216 L 56,216'></path>
+<path d='M 56,216 L 80,216'></path>
+<path d='M 80,216 L 104,216'></path>
+<path d='M 8,232 L 32,232'></path>
+<path d='M 32,232 L 56,232'></path>
+<path d='M 56,232 L 80,232'></path>
+<path d='M 80,232 L 104,232'></path>
+<path d='M 8,248 L 32,248'></path>
+<path d='M 32,248 L 56,248'></path>
+<path d='M 56,248 L 80,248'></path>
+<path d='M 80,248 L 104,248'></path>
+<path d='M 8,264 L 32,264'></path>
+<path d='M 32,264 L 56,264'></path>
+<path d='M 56,264 L 80,264'></path>
+<path d='M 80,264 L 104,264'></path>
+<path d='M 8,208 L 8,256'></path>
+<path d='M 24,288 L 24,304'></path>
+<path d='M 24,304 L 24,320'></path>
+<path d='M 24,320 L 24,336'></path>
+<path d='M 24,336 L 24,352'></path>
+<path d='M 32,208 L 32,256'></path>
+<path d='M 40,288 L 40,304'></path>
+<path d='M 40,304 L 40,320'></path>
+<path d='M 40,320 L 40,336'></path>
+<path d='M 40,336 L 40,352'></path>
+<path d='M 56,208 L 56,256'></path>
+<path d='M 56,288 L 56,304'></path>
+<path d='M 56,304 L 56,320'></path>
+<path d='M 56,320 L 56,336'></path>
+<path d='M 56,336 L 56,352'></path>
+<path d='M 72,288 L 72,304'></path>
+<path d='M 72,304 L 72,320'></path>
+<path d='M 72,320 L 72,336'></path>
+<path d='M 72,336 L 72,352'></path>
+<path d='M 80,208 L 80,256'></path>
+<path d='M 88,288 L 88,304'></path>
+<path d='M 88,304 L 88,320'></path>
+<path d='M 88,320 L 88,336'></path>
+<path d='M 88,336 L 88,352'></path>
+<path d='M 104,208 L 104,256'></path>
+<path d='M 120,16 L 120,352'></path>
+<path d='M 8,200 L 8,208'></path>
+<path d='M 8,256 L 8,264'></path>
+<path d='M 32,200 L 32,208'></path>
+<path d='M 32,256 L 32,264'></path>
+<path d='M 56,200 L 56,208'></path>
+<path d='M 56,256 L 56,264'></path>
+<path d='M 80,200 L 80,208'></path>
+<path d='M 80,256 L 80,264'></path>
+<path d='M 104,200 L 104,208'></path>
+<path d='M 104,256 L 104,264'></path>
 <text x='0' y='4'>0</text>
 <text x='8' y='4'>1</text>
 <text x='16' y='4'>2</text>

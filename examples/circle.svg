@@ -1,26 +1,26 @@
-<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='89' width='64' font-family='Menlo,Lucida Console,monospace'>
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='89' width='64' fill='currentColor' font-family='monospace' font-size='1.1em' text-anchor='middle' >
 <style type="text/css">
 svg {
-   color: #000000;
+    color: #000000;
+    stroke: currentColor;
+}
+text {
+    stroke: none;
+}
+path {
+    fill: none;
 }
 @media (prefers-color-scheme: dark) {
-   svg {
+    svg {
+      color-scheme: dark;
       color: #FFFFFF;
-   }
+    }
 }
 </style>
 <g transform='translate(8,16)'>
-<path d='M 32,16 A 16,16 0 0,0 16,32' fill='none' stroke='currentColor'></path>
-<path d='M 32,16 A 16,16 0 0,1 48,32' fill='none' stroke='currentColor'></path>
-<path d='M 16,32 A 16,16 0 0,0 32,48' fill='none' stroke='currentColor'></path>
-<path d='M 48,32 A 16,16 0 0,1 32,48' fill='none' stroke='currentColor'></path>
-<style>
-  text {
-       text-anchor: middle;
-       font-family: "Menlo","Lucida Console","monospace";
-       fill: currentColor;
-       font-size: 1em;
-  }
-</style>
+<path d='M 32,16 A 16,16 0 0,0 16,32'></path>
+<path d='M 32,16 A 16,16 0 0,1 48,32'></path>
+<path d='M 16,32 A 16,16 0 0,0 32,48'></path>
+<path d='M 48,32 A 16,16 0 0,1 32,48'></path>
 </g>
 </svg>
