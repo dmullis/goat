@@ -415,10 +415,12 @@ func (c *Canvas) getLines(
 			currentLine = snip(currentLine)
 		}
 
-		// Don't connect o to o, + to o, etc. This character is a new pass-through
+		// Don't connect o to o, + to o, "'" to ".". This character is a new pass-through
 		// so we still want to respect shouldKeep; we just don't want to draw
 		// the existing line through this cell.
-		if justPassedThrough && (isDot || isTriangle) {
+		//
+		//  XX The "'" to "." issue arises with o==S, only: split out as such? 
+		if justPassedThrough && (isDot || isTriangle || r == '.') {
 			currentLine = snip(currentLine)
 		}
 
