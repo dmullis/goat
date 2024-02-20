@@ -399,18 +399,19 @@ func (c *Canvas) getLines(
 		// This is an edge case where we have a rounded corner... that's also a
 		// joint... attached to orthogonal line, e.g.:
 		//
+		// |
 		//  '+--
 		//   |
 		//
 		// TODO: This also depends on the orientation of the corner and our
 		// line.
 		// NW / NE line can't go with EW/NS lines, vertical is OK though.
-		if isRoundedCorner != NONE && o != E && (c.partOfVerticalLine(idx) || c.partOfDiagonalLine(idx)) {
+		if o != E && isRoundedCorner != NONE && (c.partOfVerticalLine(idx) || c.partOfDiagonalLine(idx)) {
 			shouldKeep = true
 		}
 
 		// Don't connect | to > for diagonal lines or )) for horizontal lines.
-		if isPassThrough && justPassedThrough && o != S {
+		if o != S && isPassThrough && justPassedThrough {
 			currentLine = snip(currentLine)
 		}
 
@@ -744,21 +745,23 @@ func (c *Canvas) hasLineAboveOrBelow(i Index) bool {
 	return false
 }
 
-// Returns true if a "|" segment passes through this index.
+// Returns true if a "|" segment reaches into this index.
 func (c *Canvas) partOfVerticalLine(i Index) bool {
 	this := c.runeAt(i)
+
 	north := c.runeAt(i.north())
-	south := c.runeAt(i.south())
-
-	jointAboveMe := this == '|' && isJoint(north)
-
-	if north == '|' || jointAboveMe {
+	if north == '|' {
+		return true
+	}
+	if this == '|' && isJoint(north) {
 		return true
 	}
 
-	jointBelowMe := this == '|' && isJoint(south)
-
-	if south == '|' || jointBelowMe {
+	south := c.runeAt(i.south())
+	if south == '|' {
+		return true
+	}
+	if this == '|' && isJoint(south) {
 		return true
 	}
 

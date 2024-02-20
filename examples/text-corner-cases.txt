@@ -1,0 +1,34 @@
+
+ a,b   a,  ,b
+
+ a;b   a;  ;b
+
+ a+b   a+  +b
+
+ a*b   a*  *b
+
+ aob   ao  ob
+
+ a b   a    b
+
+ a-b   a-  -b
+
+ a_b   a_  _b
+
+ a|b   a|  |b
+
+ avb   av  vb
+
+ a^b   a^  ^b
+
+ a>b   a>  >b
+
+ a<b   a<  <b
+
+ a/b   a/  /b
+
+ a\b   a\  \b
+
+ a(b   a(  (b
+
+ a(b   a(  (b

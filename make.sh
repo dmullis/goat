@@ -94,6 +94,9 @@ cat *.go |
 	-svg-color-light-scheme ${svg_color_light_scheme} \
 	>goat.svg
 
+# Run under debugger
+# dlv debug ./cmd/goat -- examples/xyz.txt
+
 # Render to HTML, for local inspection.
 ./markdown_to_html.sh README.md >README.html
 ./markdown_to_html.sh CHANGELOG.md >CHANGELOG.html

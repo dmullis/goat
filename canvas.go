@@ -32,6 +32,7 @@ var jointRunes = []rune{
 }
 var jointRunesSet = makeSet(jointRunes)
 
+// XX  "reserved" is not quite the right term, since some of these are accepted as part of text strings.
 var reservedSet = makeSet(
 	append(
 		jointRunes,
@@ -120,12 +121,15 @@ func NewCanvas(in io.Reader) (c Canvas) {
 		width = max(width,w)
 		height++
 	}
+
+	// XX  Push init below up to caller; rename to "NewDataIndex()
 	c.Width = width
 	c.Height = height
 
 	c.text = make(map[Index]rune)
 	// Cell-wise scan of c.data to fill the 'c.text' map, with runes removed from c.data.
-	// XX  Why not done in the course of the line-oriented scan, in the loop above?
+	//  Why not done in the course of the line-oriented scan, in the loop above?
+	//    => because "looking down" will be required, as done in canvas.MoveToText().
 	c.MoveToText()
 	return
 }
